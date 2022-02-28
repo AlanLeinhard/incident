@@ -1,0 +1,44 @@
+body {background-color: white;}
+navbar-brand {padding-left: 10px; margin-left: 10px;}
+.items-text {
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+
+
+#wrap { 
+max-width: 1550px; 
+margin: 0 auto; 
+position: relative;
+}
+
+.btn-default:hover {
+text-transform: uppercase;
+}
+
+.fixed-top {
+justify-content: center;
+display: flex;
+}
+
+.news {
+position: absolute;
+top: 65px;
+max-width: 650px;
+background-color:#f8f9fa;
+}
+
+.footer {
+justify-content: center;
+display: flex;
+position: fixed;
+z-index: 1;
+bottom: 0;
+left: 35%;
+max-height: 30px;
+max-width: 600px;
+background-color:#f8f9fa;
+}

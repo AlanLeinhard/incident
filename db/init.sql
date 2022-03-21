@@ -1,6 +1,3 @@
-CREATE DATABASE `quotes_db`;
-USE `quotes_db`;
-
 CREATE TABLE `quote` (
     `id` INT(11) PRIMARY KEY AUTO_INCREMENT,
     `quote` VARCHAR(512) NOT NULL,

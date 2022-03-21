@@ -112,3 +112,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+
+**/env
+**/node_modules/*
+db/data
+ui/node_modules

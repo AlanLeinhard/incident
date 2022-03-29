@@ -1,2 +1,0 @@
-# VeeNDeN
-Created with CodeSandbox

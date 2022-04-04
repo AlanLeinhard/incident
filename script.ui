@@ -23,18 +23,18 @@
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>630</x>
          <y>30</y>
-         <width>381</width>
-         <height>231</height>
+         <width>681</width>
+         <height>671</height>
         </rect>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
-         <x>550</x>
-         <y>150</y>
+         <x>170</x>
+         <y>50</y>
          <width>201</width>
          <height>81</height>
         </rect>
@@ -47,8 +47,8 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>280</y>
-         <width>151</width>
+         <y>200</y>
+         <width>541</width>
          <height>331</height>
         </rect>
        </property>
@@ -58,35 +58,12 @@
         </property>
        </item>
       </widget>
-      <widget class="QPlainTextEdit" name="plainTextEdit_2">
-       <property name="geometry">
-        <rect>
-         <x>420</x>
-         <y>50</y>
-         <width>321</width>
-         <height>61</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="geometry">
-        <rect>
-         <x>810</x>
-         <y>70</y>
-         <width>151</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Выполнить команду</string>
-       </property>
-      </widget>
       <widget class="QTableWidget" name="tableWidget">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>290</y>
-         <width>1041</width>
+         <x>180</x>
+         <y>540</y>
+         <width>111</width>
          <height>331</height>
         </rect>
        </property>
@@ -166,6 +143,19 @@
         </property>
        </item>
       </widget>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>580</y>
+         <width>211</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -176,7 +166,7 @@
      <x>0</x>
      <y>0</y>
      <width>1335</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuHome">

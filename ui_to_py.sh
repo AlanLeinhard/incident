@@ -1,0 +1,1 @@
+pyuic5 -x script.ui -o script.py

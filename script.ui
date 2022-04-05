@@ -23,10 +23,10 @@
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="geometry">
         <rect>
-         <x>630</x>
-         <y>30</y>
-         <width>681</width>
-         <height>671</height>
+         <x>660</x>
+         <y>40</y>
+         <width>321</width>
+         <height>251</height>
         </rect>
        </property>
       </widget>
@@ -34,7 +34,7 @@
        <property name="geometry">
         <rect>
          <x>170</x>
-         <y>50</y>
+         <y>30</y>
          <width>201</width>
          <height>81</height>
         </rect>
@@ -46,10 +46,10 @@
       <widget class="QListWidget" name="listWidget">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>200</y>
-         <width>541</width>
-         <height>331</height>
+         <x>10</x>
+         <y>120</y>
+         <width>571</width>
+         <height>201</height>
         </rect>
        </property>
        <item>
@@ -61,9 +61,9 @@
       <widget class="QTableWidget" name="tableWidget">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>540</y>
-         <width>111</width>
+         <x>10</x>
+         <y>330</y>
+         <width>861</width>
          <height>331</height>
         </rect>
        </property>
@@ -146,10 +146,10 @@
       <widget class="QPushButton" name="pushButton_3">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>580</y>
-         <width>211</width>
-         <height>91</height>
+         <x>380</x>
+         <y>30</y>
+         <width>201</width>
+         <height>81</height>
         </rect>
        </property>
        <property name="text">

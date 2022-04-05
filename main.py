@@ -1,6 +1,7 @@
 # coding:cp1251
 from ast import For
 import cmd
+import time
 import imp
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication

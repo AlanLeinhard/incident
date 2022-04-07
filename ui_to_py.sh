@@ -1,1 +1,1 @@
-pyuic5 -x script.ui -o script.py
+pyuic5 -x script2.ui -o script2.py

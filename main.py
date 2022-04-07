@@ -55,32 +55,50 @@ def onclick():
     Global.output = str(Global.call_cmd(cmd))
     out = Global.output
 
-    form.listWidget_2.clear()
-    form.plainTextEdit_2.setPlainText(out)
+    form.listWidget.clear()
+    form.plainTextEdit.setPlainText(out)
 
     for line in out.splitlines():
         if line.startswith('       логическое имя: ') == True:
             info = str(line)
             info = info[info.find('       логическое имя:'):]
             # info = info[23:]
-            form.listWidget_2.addItem(info)
+            form.listWidget.addItem(info)
     
 
 
 def item_click():
-    info = str(form.listWidget_2.currentItem().text())
+    info = str(form.listWidget.currentItem().text())
     info = str(info[info.find('       логическое имя:'):])
     output = Global.output
 
     start = '  *'
 
     out = Global.search_for_in(start, info, output)
-    form.plainTextEdit_2.setPlainText('')
-    form.plainTextEdit_2.insertPlainText(out + '\n')
+    form.plainTextEdit.setPlainText('')
+    form.plainTextEdit.insertPlainText(out + '\n')
+    form.label_11.setText(info[23:])
+    form.pushButton_4.show()
 
 
 
+def anal_onclick():
+    form.groupBox.hide()
+    form.groupBox_2.show()
+
+
+
+def back_onclick():
+    form.groupBox_2.hide()
+    form.groupBox.show()
+
+
+form.groupBox_2.hide()
+form.pushButton_4.hide()
+# form.pushButton_2.hide()
 form.pushButton.clicked.connect(onclick)
-form.listWidget_2.clicked.connect(item_click)
+form.pushButton_3.clicked.connect(back_onclick)
+form.pushButton_4.clicked.connect(anal_onclick)
+form.listWidget.clicked.connect(item_click)
 
 app.exec_()

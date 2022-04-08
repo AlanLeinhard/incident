@@ -23,17 +23,17 @@
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="geometry">
         <rect>
-         <x>660</x>
-         <y>40</y>
+         <x>490</x>
+         <y>30</y>
          <width>321</width>
-         <height>251</height>
+         <height>291</height>
         </rect>
        </property>
       </widget>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
-         <x>170</x>
+         <x>10</x>
          <y>30</y>
          <width>201</width>
          <height>81</height>
@@ -48,7 +48,7 @@
         <rect>
          <x>10</x>
          <y>120</y>
-         <width>571</width>
+         <width>481</width>
          <height>201</height>
         </rect>
        </property>
@@ -63,7 +63,7 @@
         <rect>
          <x>10</x>
          <y>330</y>
-         <width>861</width>
+         <width>961</width>
          <height>331</height>
         </rect>
        </property>
@@ -74,79 +74,39 @@
        </row>
        <column>
         <property name="text">
-         <string>New Column</string>
+         <string>Путь до файла</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>New Column</string>
+         <string>Инода</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>New Column</string>
+         <string>Размер файла</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>New Column</string>
+         <string>Дата создания</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>New Column</string>
+         <string>Дата изменения</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>New Column</string>
+         <string>Дата удаления</string>
         </property>
        </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>New Column</string>
-        </property>
-       </column>
-       <item row="0" column="0">
-        <property name="text">
-         <string>sdfghcj</string>
-        </property>
-       </item>
-       <item row="0" column="1">
-        <property name="text">
-         <string>dfcgvhjkbhj</string>
-        </property>
-       </item>
-       <item row="0" column="2">
-        <property name="text">
-         <string>dfhghkj</string>
-        </property>
-       </item>
       </widget>
       <widget class="QPushButton" name="pushButton_3">
        <property name="geometry">
         <rect>
-         <x>380</x>
+         <x>210</x>
          <y>30</y>
          <width>201</width>
          <height>81</height>

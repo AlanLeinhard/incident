@@ -8,6 +8,42 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from subprocess import Popen, PIPE
+
+
+class Global():
+    output = str('')
+
+    def call_cmd(cmd):
+        proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, encoding='utf-8')
+        stdout, stderr = proc.communicate()
+        out = stdout + stderr
+        return out
+
+    def search_for_in(start, word, text):
+        i = 0
+        result = False
+        out = str('')
+
+        for line in text.splitlines():
+            if line.startswith(start) == True:
+                i = i + 1
+            if i == 1:
+                out = out + str(line) + '\n'
+            else: 
+                if i == 2:
+                    for strr in out.splitlines():
+                        if strr.startswith(word) == True:
+                            result = True
+                            break
+                    if not result:
+                        i = i-1
+                        out = str('') + str(line)
+        if out != '':
+            return out
+        else:
+            return 'error'
+
 
 
 class Ui_MIAVIbyINCEDOS(object):
@@ -63,15 +99,15 @@ class Ui_MIAVIbyINCEDOS(object):
         self.groupBox.setGeometry(QtCore.QRect(10, 110, 1281, 791))
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
-        self.pushButton_5 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_5.setGeometry(QtCore.QRect(670, 620, 231, 51))
+        self.pushButton_4 = QtWidgets.QPushButton(self.groupBox)
+        self.pushButton_4.setGeometry(QtCore.QRect(670, 650, 231, 51))
         font = QtGui.QFont()
         font.setFamily("HoloLens MDL2 Assets")
         font.setPointSize(14)
-        self.pushButton_5.setFont(font)
-        self.pushButton_5.setAcceptDrops(False)
-        self.pushButton_5.setAccessibleName("")
-        self.pushButton_5.setStyleSheet("background-color: rgb(255, 53, 56);\n"
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setAcceptDrops(False)
+        self.pushButton_4.setAccessibleName("")
+        self.pushButton_4.setStyleSheet("background-color: rgb(255, 53, 56);\n"
 "border-color: rgb(93, 0, 1);\n"
 "border-radius: 25px 25px;\n"
 "-webkit-transition-duration: 0.4s;\n"
@@ -79,9 +115,9 @@ class Ui_MIAVIbyINCEDOS(object):
 "hover {\n"
 "    background-color: #4CAF50; /* Green */\n"
 "    color: white;}")
-        self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_4.setObjectName("pushButton_4")
         self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(420, 620, 231, 51))
+        self.pushButton.setGeometry(QtCore.QRect(420, 650, 231, 51))
         font = QtGui.QFont()
         font.setFamily("HoloLens MDL2 Assets")
         font.setPointSize(14)
@@ -97,11 +133,11 @@ class Ui_MIAVIbyINCEDOS(object):
 "    background-color: #4CAF50; /* Green */\n"
 "    color: white;}")
         self.pushButton.setObjectName("pushButton")
-        self.plainTextEdit_3 = QtWidgets.QPlainTextEdit(self.groupBox)
-        self.plainTextEdit_3.setGeometry(QtCore.QRect(700, 40, 661, 571))
-        self.plainTextEdit_3.setStyleSheet("color:white;\n"
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.groupBox)
+        self.plainTextEdit.setGeometry(QtCore.QRect(700, 40, 661, 571))
+        self.plainTextEdit.setStyleSheet("color:white;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))")
-        self.plainTextEdit_3.setObjectName("plainTextEdit_3")
+        self.plainTextEdit.setObjectName("plainTextEdit")
         self.label_12 = QtWidgets.QLabel(self.groupBox)
         self.label_12.setGeometry(QtCore.QRect(30, 30, 559, 284))
         self.label_12.setMinimumSize(QtCore.QSize(419, 279))
@@ -112,23 +148,24 @@ class Ui_MIAVIbyINCEDOS(object):
         self.label_12.setStyleSheet("color: white;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.label_12.setObjectName("label_12")
-        self.listWidget_3 = QtWidgets.QListWidget(self.groupBox)
-        self.listWidget_3.setGeometry(QtCore.QRect(30, 190, 481, 192))
-        self.listWidget_3.setStyleSheet("color:white;\n"
+        self.listWidget = QtWidgets.QListWidget(self.groupBox)
+        self.listWidget.setGeometry(QtCore.QRect(30, 190, 481, 192))
+        self.listWidget.setStyleSheet("color:white;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
-        self.listWidget_3.setObjectName("listWidget_3")
+        self.listWidget.setObjectName("listWidget")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(0, 80, 1381, 751))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 90, 1381, 751))
         self.groupBox_2.setObjectName("groupBox_2")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.groupBox_2)
-        self.plainTextEdit.setGeometry(QtCore.QRect(620, 70, 381, 421))
-        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.groupBox_2)
+        self.plainTextEdit_2.setGeometry(QtCore.QRect(620, 70, 381, 421))
+        self.plainTextEdit_2.setObjectName("plainTextEdit_2")
         self.radioButton = QtWidgets.QRadioButton(self.groupBox_2)
         self.radioButton.setGeometry(QtCore.QRect(30, 320, 112, 23))
         self.radioButton.setStyleSheet("color: rgb(255, 255, 255)")
         self.radioButton.setObjectName("radioButton")
         self.label_11 = QtWidgets.QLabel(self.groupBox_2)
-        self.label_11.setGeometry(QtCore.QRect(20, 90, 67, 17))
+        self.label_11.setGeometry(QtCore.QRect(20, 90, 151, 17))
+        self.label_11.setStyleSheet("color: rgb(255, 255, 255);")
         self.label_11.setObjectName("label_11")
         self.pushButton_2 = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton_2.setGeometry(QtCore.QRect(680, 670, 231, 51))
@@ -197,7 +234,7 @@ class Ui_MIAVIbyINCEDOS(object):
         self.label_2.setText(_translate("MIAVIbyINCEDOS", "MIAVI"))
         self.label_3.setText(_translate("MIAVIbyINCEDOS", "by INCEDOS"))
         self.label_4.setText(_translate("MIAVIbyINCEDOS", "ScanTool for Linux"))
-        self.pushButton_5.setText(_translate("MIAVIbyINCEDOS", "Анализ"))
+        self.pushButton_4.setText(_translate("MIAVIbyINCEDOS", "Анализ"))
         self.pushButton.setText(_translate("MIAVIbyINCEDOS", "Поиск дисков"))
         self.label_12.setText(_translate("MIAVIbyINCEDOS", "Обнаруженые следующие подключенные носители:"))
         self.groupBox_2.setTitle(_translate("MIAVIbyINCEDOS", "GroupBox"))
@@ -211,6 +248,59 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton_3.setText(_translate("MIAVIbyINCEDOS", "Назад"))
         self.label_9.setText(_translate("MIAVIbyINCEDOS", "Выберите файловую систему для сканирования дискового пространства:"))
 
+
+
+
+        def onclick():
+                cmd = ['sudo lshw -class disk']
+                Global.output = str(Global.call_cmd(cmd))
+                out = Global.output
+
+                self.listWidget.clear()
+                self.plainTextEdit.setPlainText(out)
+
+                for line in out.splitlines():
+                        if line.startswith('       логическое имя: ') == True:
+                                info = str(line)
+                                info = info[info.find('       логическое имя:'):]
+                                # info = info[23:]
+                                self.listWidget.addItem(info)
+        
+
+
+        def item_click():
+                info = str(self.listWidget.currentItem().text())
+                info = str(info[info.find('       логическое имя:'):])
+                output = Global.output
+
+                start = '  *'
+
+                out = Global.search_for_in(start, info, output)
+                self.plainTextEdit.setPlainText('')
+                self.plainTextEdit.insertPlainText(out + '\n')
+                self.label_11.setText(info[23:])
+                self.pushButton_4.show()
+
+
+
+        def anal_onclick():
+                self.groupBox.hide()
+                self.groupBox_2.show()
+
+
+
+        def back_onclick():
+                self.groupBox_2.hide()
+                self.groupBox.show()
+
+
+        self.groupBox_2.hide()
+        self.pushButton_4.hide()
+        # self.pushButton_2.hide()
+        self.pushButton.clicked.connect(onclick)
+        self.pushButton_3.clicked.connect(back_onclick)
+        self.pushButton_4.clicked.connect(anal_onclick)
+        self.listWidget.clicked.connect(item_click)
 
 if __name__ == "__main__":
     import sys

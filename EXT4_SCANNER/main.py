@@ -1,18 +1,14 @@
 # coding:cp1251
-from ast import For
-from cmath import inf
-import cmd
-import imp
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication
 from subprocess import Popen, PIPE
 
-Form, Window = uic.loadUiType('script2.ui')
+Form, Window = uic.loadUiType('./script3.ui')
 
 app = QApplication([])
 window = Window()
-form = Form()
-form.setupUi(window)
+self = Form()
+self.setupUi(window)
 window.show()
 
 class Global():
@@ -55,50 +51,50 @@ def onclick():
     Global.output = str(Global.call_cmd(cmd))
     out = Global.output
 
-    form.listWidget.clear()
-    form.plainTextEdit.setPlainText(out)
+    self.listWidget.clear()
+    self.plainTextEdit.setPlainText(out)
 
     for line in out.splitlines():
         if line.startswith('       логическое имя: ') == True:
             info = str(line)
             info = info[info.find('       логическое имя:'):]
             # info = info[23:]
-            form.listWidget.addItem(info)
+            self.listWidget.addItem(info)
     
 
 
 def item_click():
-    info = str(form.listWidget.currentItem().text())
+    info = str(self.listWidget.currentItem().text())
     info = str(info[info.find('       логическое имя:'):])
     output = Global.output
 
     start = '  *'
 
     out = Global.search_for_in(start, info, output)
-    form.plainTextEdit.setPlainText('')
-    form.plainTextEdit.insertPlainText(out + '\n')
-    form.label_11.setText(info[23:])
-    form.pushButton_4.show()
+    self.plainTextEdit.setPlainText('')
+    self.plainTextEdit.insertPlainText(out + '\n')
+    self.label_11.setText(info[23:])
+    self.pushButton_4.show()
 
 
 
 def anal_onclick():
-    form.groupBox.hide()
-    form.groupBox_2.show()
+    self.groupBox.hide()
+    self.groupBox_2.show()
 
 
 
 def back_onclick():
-    form.groupBox_2.hide()
-    form.groupBox.show()
+    self.groupBox_2.hide()
+    self.groupBox.show()
 
 
-form.groupBox_2.hide()
-form.pushButton_4.hide()
-# form.pushButton_2.hide()
-form.pushButton.clicked.connect(onclick)
-form.pushButton_3.clicked.connect(back_onclick)
-form.pushButton_4.clicked.connect(anal_onclick)
-form.listWidget.clicked.connect(item_click)
+self.groupBox_2.hide()
+self.pushButton_4.hide()
+# self.pushButton_2.hide()
+self.pushButton.clicked.connect(onclick)
+self.pushButton_3.clicked.connect(back_onclick)
+self.pushButton_4.clicked.connect(anal_onclick)
+self.listWidget.clicked.connect(item_click)
 
 app.exec_()

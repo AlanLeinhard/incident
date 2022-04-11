@@ -302,7 +302,8 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton_4.clicked.connect(anal_onclick)
         self.listWidget.clicked.connect(item_click)
 
-if __name__ == "__main__":
+
+def main():
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MIAVIbyINCEDOS = QtWidgets.QMainWindow()
@@ -310,3 +311,7 @@ if __name__ == "__main__":
     ui.setupUi(MIAVIbyINCEDOS)
     MIAVIbyINCEDOS.show()
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+        main()

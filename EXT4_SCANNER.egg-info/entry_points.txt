@@ -1,0 +1,3 @@
+[console_scripts]
+EXT4_SCANNER = EXT4_SCANNER.script2:main
+

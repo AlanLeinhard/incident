@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='EXT4_SCANNER',
-    version='0.1',
+    version='0.1.1',
     author='INCENDOS',
     author_email='kommander.al@gmail.com',
     description='A useful module',
@@ -19,7 +19,7 @@ setup(
         'sip==6.5.1',
         'toml==0.10.2'],
     entry_points = {
-        'console_scripts' : ['EXT4_SCANNER = EXT4_SCANNER.script2']
+        'console_scripts' : ['EXT4_SCANNER = EXT4_SCANNER.script2:main']
     },
     long_description=open('README.md').read(),
 )

@@ -4,8 +4,8 @@ include README.md
  
 include requirements.txt
 
-include photo_2022-04-07_15-21-50.jpg
+include ./EXT4_SCANNER/photo_2022-04-07_15-21-50.jpg
 
-include script.ui
-include script2.ui
-include script3.ui
+include ./EXT4_SCANNER/script.ui
+include ./EXT4_SCANNER/script2.ui
+include ./EXT4_SCANNER/script3.ui

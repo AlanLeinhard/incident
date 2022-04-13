@@ -19,10 +19,10 @@ setup(
         'sip==6.5.1',
         'toml==0.10.2'],
     entry_points = {
-        'console_scripts' : ['ext4scanner = ext4scanner.ext4scanner:main']
+        'gui_scripts' : ['ext4scanner = ext4scanner.ext4scanner:main']
     },
     data_files = [
-        ('share/applications/', ['vxlabs-ext4scanner.desktop'])
+        ('share/applications/', ['ext4scanner.desktop'])
         ],
     classifiers=[
         'Development Status :: 4 - Beta',

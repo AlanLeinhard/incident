@@ -1,1 +1,6 @@
 **/env
+__pycache__
+dist
+deb_dist
+ext4scanner.egg-info
+*.gz

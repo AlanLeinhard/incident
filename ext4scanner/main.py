@@ -1,5 +1,5 @@
 # coding:cp1251
-from PyQt5 import uic
+from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from subprocess import Popen, PIPE
 
@@ -19,6 +19,25 @@ class Global():
         stdout, stderr = proc.communicate()
         out = stdout + stderr
         return out
+
+
+
+    def finddiskmount(disk):
+        cmd = 'mount | grep ' + disk
+        out = str(Global.call_cmd(cmd))
+
+        out = out[out.find(' on ')+4:]
+        # print(out)
+        out = out[:out.find(' type'):]
+        # print(out)
+
+        # for line in out.splitlines():
+        #     if line.startswith('/dev') == True:
+        #         print(line + '\n')
+
+        return out
+
+
 
     def search_for_in(start, word, text):
         i = 0
@@ -49,12 +68,11 @@ class Global():
 def onclick():
     cmd = ['sudo lshw -class disk']
     Global.output = str(Global.call_cmd(cmd))
-    out = Global.output
 
     self.listWidget.clear()
-    self.plainTextEdit.setPlainText(out)
+    self.plainTextEdit.setPlainText(Global.output)
 
-    for line in out.splitlines():
+    for line in Global.output.splitlines():
         if line.startswith('       логическое имя: ') == True:
             info = str(line)
             info = info[info.find('       логическое имя:'):]
@@ -71,11 +89,62 @@ def item_click():
     start = '  *'
 
     out = Global.search_for_in(start, info, output)
+    info = info[23:]
     self.plainTextEdit.setPlainText('')
     self.plainTextEdit.insertPlainText(out + '\n')
-    self.label_11.setText(info[23:])
-    self.pushButton_4.show()
+    self.label_11.setText(info)
+    self.pushButton_4.show()    
+    totable(Global.finddiskmount(info))
 
+
+
+def totable(disk):
+    self.tableWidget.clear()
+    cmdDiskPath = ["cd ",disk," && df -h | grep '/dev/sdb' | awk '{print $6}'"]
+    print(cmdDiskPath)
+    outputDiskPath = Global.call_cmd(cmdDiskPath).replace('\n', '')
+    print(outputDiskPath)
+    cmdFilePath = ['find '+outputDiskPath+' -exec stat --printf "%n \n" {} +']
+    outputFilePath = Global.call_cmd(cmdFilePath)
+    cmdInode = [f'find {outputDiskPath} -exec stat --printf "%i \n" {{}} +']
+    outputInode = Global.call_cmd(cmdInode)
+    # print(cmdFilePath)
+    # print(cmdInode)
+    cmdSize = [f'find {outputDiskPath} -exec stat --printf "%s \n" {{}} +']
+    outputSize = Global.call_cmd(cmdSize)
+    cmdAccess = [f'find {outputDiskPath} -exec stat --printf "%x \n" {{}} +']
+    outputAccess = Global.call_cmd(cmdAccess)
+    cmdModify = [f'find {outputDiskPath} -exec stat --printf "%y \n" {{}} +']
+    outputModify = Global.call_cmd(cmdModify)
+    cmdChange = [f'find {outputDiskPath} -exec stat --printf "%z \n" {{}} +']
+    outputChange = Global.call_cmd(cmdChange)
+    self.tableWidget.setColumnCount(6)
+    self.tableWidget.setRowCount(len(outputFilePath.splitlines()))
+    i = 0
+    self.tableWidget.setHorizontalHeaderLabels([
+        'Путь к файлу',
+        'Инода',
+        'Размер',
+        'Дата доступа',
+        'Дата модификации',
+        'Дата изменения'
+    ])
+    file_info(outputFilePath, 0)
+    file_info(outputInode, 1)
+    file_info(outputSize, 2)
+    file_info(outputAccess.replace('.',','), 3)
+    file_info(outputModify.replace('.',','), 4)
+    file_info(outputChange.replace('.',','), 5)
+    self.tableWidget.resizeColumnsToContents()
+    self.tableWidget.resizeRowsToContents()
+
+
+
+def file_info(strInfo, col):
+    i = 0
+    for line in strInfo.splitlines():
+        self.tableWidget.setItem(i, col, QtWidgets.QTableWidgetItem(line.partition(',')[0]))
+        i+=1
 
 
 def anal_onclick():

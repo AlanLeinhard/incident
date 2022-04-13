@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1287</width>
+    <width>1316</width>
     <height>863</height>
    </rect>
   </property>
@@ -202,16 +202,6 @@ hover {
       <string>Выберите файловую систему для сканирования дискового пространства:</string>
      </property>
     </widget>
-    <widget class="QTableView" name="tableView">
-     <property name="geometry">
-      <rect>
-       <x>660</x>
-       <y>60</y>
-       <width>591</width>
-       <height>551</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QSplitter" name="splitter">
      <property name="geometry">
       <rect>
@@ -256,6 +246,20 @@ hover {
        <string>RadioButton</string>
       </property>
      </widget>
+    </widget>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>40</y>
+       <width>711</width>
+       <height>571</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))</string>
+     </property>
     </widget>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -501,6 +505,12 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
      <string>by INCEDOS</string>
     </property>
    </widget>
+   <zorder>label</zorder>
+   <zorder>groupBox_2</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_5</zorder>
+   <zorder>groupBox</zorder>
   </widget>
  </widget>
  <resources/>

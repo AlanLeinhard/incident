@@ -22,6 +22,20 @@ pip install dist/EXT4_SCANNER-0.1.1.tar.gz
 pytodeb
 
 python3 setup.py --command-packages=stdeb.command bdist_deb
-sudo dpkg -i ./deb_dist/python3-ext4-scanner_0.1.1-1_all.deb
+sudo dpkg -i ./deb_dist/python3-ext4scanner_0.1.1-1_all.deb
+
+
+cd /usr/bin
+ext4scanner
+
+
+dpkg -l | grep python3-ext4
+sudo dpkg -r python3-ext4scanner 
+
+
+
+
+
+sudo dpkg -r python3-ext4scanner && python3 setup.py --command-packages=stdeb.command bdist_deb && sudo dpkg -i ./deb_dist/python3-ext4scanner_0.1.1-1_all.deb && ext4scanner
 
  -->

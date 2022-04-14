@@ -10,14 +10,14 @@ setup(
     license='MIT',
     url='https://github.com/AlanLeinhard/incident',
     packages=['ext4scanner'],
-    install_requires=[
-        'packaging==21.3',
-        'pyparsing==3.0.7',
-        'PyQt5==5.15.6',
-        'PyQt5-Qt5==5.15.2',
-        'PyQt5-sip==12.9.1',
-        'sip==6.5.1',
-        'toml==0.10.2'],
+    # install_requires=[
+    #     'packaging',
+    #     'pyparsing',
+    #     'PyQt5',
+    #     'PyQt5-Qt5',
+    #     'PyQt5-sip',
+    #     'sip',
+    #     'toml'],
     entry_points = {
         'gui_scripts' : ['ext4scanner = ext4scanner.ext4scanner:main']
     },
@@ -26,7 +26,7 @@ setup(
         ],
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Environment :: Web Environment',
+        'Environment :: Web Environment :: GPU',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
@@ -35,3 +35,9 @@ setup(
     ],
     long_description=open('README.md').read(),
 )
+
+from subprocess import Popen, PIPE
+
+cmd = 'pip install -r requirements.txt'
+
+Popen(cmd, shell=True)

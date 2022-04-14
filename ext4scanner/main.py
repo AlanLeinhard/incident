@@ -3,7 +3,7 @@ from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from subprocess import Popen, PIPE
 
-Form, Window = uic.loadUiType('./script3.ui')
+Form, Window = uic.loadUiType('./ext4scanner/script4.ui')
 
 app = QApplication([])
 window = Window()
@@ -95,13 +95,14 @@ def item_click():
     self.label_11.setText(info)
     self.pushButton_4.show()    
     totable(Global.finddiskmount(info))
+    self.pushButton.hide()
 
 
 
 def totable(disk):
     self.tableWidget.clear()
-    cmdDiskPath = ["cd ",disk," && df -h | grep '/dev/sdb' | awk '{print $6}'"]
-    print(cmdDiskPath)
+    cmdDiskPath = ["cd ",disk," && df -h | grep ", disk, " | awk '{print $6}'"]
+    # print(cmdDiskPath)
     outputDiskPath = Global.call_cmd(cmdDiskPath).replace('\n', '')
     print(outputDiskPath)
     cmdFilePath = ['find '+outputDiskPath+' -exec stat --printf "%n \n" {} +']

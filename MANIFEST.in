@@ -3,9 +3,3 @@ include LICENSE
 include README.md
  
 include requirements.txt
-
-include ./EXT4_SCANNER/photo_2022-04-07_15-21-50.jpg
-
-include ./EXT4_SCANNER/script.ui
-include ./EXT4_SCANNER/script2.ui
-include ./EXT4_SCANNER/script3.ui

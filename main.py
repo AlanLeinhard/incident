@@ -1,5 +1,4 @@
 from ast import For
-import cmd
 import imp
 from PyQt5 import uic, QtGui, QtWidgets
 from PyQt5.QtGui import QGuiApplication

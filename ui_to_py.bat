@@ -1,0 +1,1 @@
+C:\Users\Alan\Documents\work\incident\env\Scripts\pyuic5.exe -x script.ui -o script.py

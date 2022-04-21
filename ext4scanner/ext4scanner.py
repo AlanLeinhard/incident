@@ -14,6 +14,10 @@ class Global():
         out = stdout + stderr
         return out
 
+
+
+
+
     def search_for_in(start, word, text):
         i = 0
         result = False
@@ -37,6 +41,25 @@ class Global():
             return out
         else:
             return 'error'
+
+
+
+
+
+    def finddiskmount(disk):
+        cmd = 'mount | grep ' + disk
+        out = str(Global.call_cmd(cmd))
+
+        out = out[out.find(' on ')+4:]
+        # print(out)
+        out = out[:out.find(' type'):]
+        # print(out)
+
+        # for line in out.splitlines():
+        #     if line.startswith('/dev') == True:
+        #         print(line + '\n')
+
+        return out
 
 
 
@@ -295,6 +318,61 @@ class Ui_MIAVIbyINCEDOS(object):
                 self.label_11.setText(info[23:])
                 self.pushButton_4.show()
                 self.pushButton.hide()
+                totable(Global.finddiskmount(info), self)
+
+
+
+
+
+        def file_info(strInfo, col):
+                i = 0
+                for line in strInfo.splitlines():
+                        self.tableWidget.setItem(i, col, QtWidgets.QTableWidgetItem(line.partition(',')[0]))
+                        i+=1
+
+
+
+
+
+        def totable(disk, self):
+                self.tableWidget.clear()
+                cmdDiskPath = ["df -h | grep '/dev/sdb' | awk '{print $6}'"]
+                # print(cmdDiskPath)
+                outputDiskPath = Global.call_cmd(cmdDiskPath).replace('\n', '')
+                print(outputDiskPath)
+                cmdFilePath = ['find '+outputDiskPath+' -exec stat --printf "%n \n" {} +']
+                outputFilePath = Global.call_cmd(cmdFilePath)
+                cmdInode = [f'find {outputDiskPath} -exec stat --printf "%i \n" {{}} +']
+                outputInode = Global.call_cmd(cmdInode)
+                # print(cmdFilePath)
+                # print(cmdInode)
+                cmdSize = [f'find {outputDiskPath} -exec stat --printf "%s \n" {{}} +']
+                outputSize = Global.call_cmd(cmdSize)
+                cmdAccess = [f'find {outputDiskPath} -exec stat --printf "%x \n" {{}} +']
+                outputAccess = Global.call_cmd(cmdAccess)
+                cmdModify = [f'find {outputDiskPath} -exec stat --printf "%y \n" {{}} +']
+                outputModify = Global.call_cmd(cmdModify)
+                cmdChange = [f'find {outputDiskPath} -exec stat --printf "%z \n" {{}} +']
+                outputChange = Global.call_cmd(cmdChange)
+                self.tableWidget.setColumnCount(6)
+                self.tableWidget.setRowCount(len(outputFilePath.splitlines()))
+                i = 0
+                self.tableWidget.setHorizontalHeaderLabels([
+                        'Путь к файлу',
+                        'Инода',
+                        'Размер',
+                        'Дата доступа',
+                        'Дата модификации',
+                        'Дата изменения'
+                ])
+                file_info(outputFilePath, 0)
+                file_info(outputInode, 1)
+                file_info(outputSize, 2)
+                file_info(outputAccess.replace('.',','), 3)
+                file_info(outputModify.replace('.',','), 4)
+                file_info(outputChange.replace('.',','), 5)
+                self.tableWidget.resizeColumnsToContents()
+                self.tableWidget.resizeRowsToContents()
 
 
 

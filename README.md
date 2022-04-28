@@ -36,6 +36,6 @@ sudo dpkg -r python3-ext4scanner
 
 
 
-sudo dpkg -r python3-ext4scanner && python3 setup.py --command-packages=stdeb.command bdist_deb && sudo dpkg -i ./deb_dist/python3-ext4scanner_0.1.1-1_all.deb && ext4scanner
+sudo dpkg -r ext4scanner && python3 setup.py --command-packages=stdeb.command bdist_deb && sudo dpkg -i ./deb_dist/python3-ext4scanner_0.1.1-1_all.deb && ext4scanner
 
  -->

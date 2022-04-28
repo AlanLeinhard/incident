@@ -1,5 +1,6 @@
+from ast import For
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QFileDialog
+from PyQt5.QtWidgets import QWidget, QFileDialog, QGridLayout, QLabel, QLineEdit, QPushButton, QDialog
 from subprocess import Popen, PIPE, call
 import argparse
 import csv
@@ -12,7 +13,6 @@ parser.add_argument("--install", action="store_true",
 args = parser.parse_args()
 a = args.install
 
-
 if a:
     cmd = 'sudo -i apt install python3-pyqt5 && sudo apt install python3-pip && pip install packaging==21.3 pyparsing==3.0.7 PyQt5==5.15.6 PyQt5-Qt5==5.15.2 PyQt5-sip==12.9.1 sip==6.5.1 toml==0.10.2'
     call(cmd, shell=True)
@@ -20,7 +20,17 @@ if a:
 
 class Global():
     output = str('')
-    krrr = 0
+
+    def call_cmd(cmd):
+        # print(cmd)
+        process = Popen(cmd,
+                        stdout=PIPE,
+                        stderr=PIPE,
+                        shell=False,
+                        encoding='utf-8')
+        stdout, stderr = process.communicate()
+        out = stdout + stderr
+        return out
 
 
 class Ui_MIAVIbyINCEDOS(object):
@@ -82,32 +92,12 @@ class Ui_MIAVIbyINCEDOS(object):
                                         "    background-color: #4CAF50; /* Green */\n"
                                         "    color: black;}")
         self.pushButton_3.setObjectName("pushButton_3")
-        self.label_9 = QtWidgets.QLabel(self.groupBox_2)
-        self.label_9.setGeometry(QtCore.QRect(20, 270, 581, 21))
-        self.label_9.setStyleSheet("color: white; font-size: 10pt")
-        self.label_9.setObjectName("label_9")
-        self.splitter = QtWidgets.QSplitter(self.groupBox_2)
-        self.splitter.setGeometry(QtCore.QRect(30, 320, 561, 20))
-        self.splitter.setOrientation(QtCore.Qt.Horizontal)
-        self.splitter.setObjectName("splitter")
-        self.radioButton = QtWidgets.QRadioButton(self.splitter)
-        self.radioButton.setStyleSheet("color: rgb(255, 255, 255)")
-        self.radioButton.setObjectName("radioButton")
-        self.radioButton_2 = QtWidgets.QRadioButton(self.splitter)
-        self.radioButton_2.setStyleSheet("color: rgb(255, 255, 255)")
-        self.radioButton_2.setObjectName("radioButton_2")
-        self.radioButton_3 = QtWidgets.QRadioButton(self.splitter)
-        self.radioButton_3.setStyleSheet("color: rgb(255, 255, 255)")
-        self.radioButton_3.setObjectName("radioButton_3")
-        self.radioButton_4 = QtWidgets.QRadioButton(self.splitter)
-        self.radioButton_4.setStyleSheet("color: rgb(255, 255, 255)")
-        self.radioButton_4.setObjectName("radioButton_4")
         self.tableWidget = QtWidgets.QTableWidget(self.groupBox_2)
         self.tableWidget.setGeometry(QtCore.QRect(540, 40, 711, 571))
         self.tableWidget.setStyleSheet("color:white;\n"
                                        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))")
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -119,6 +109,55 @@ class Ui_MIAVIbyINCEDOS(object):
         self.tableWidget.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(5, item)
+        self.groupBox_3 = QtWidgets.QGroupBox(self.groupBox_2)
+        self.groupBox_3.setGeometry(QtCore.QRect(10, 150, 521, 301))
+        self.groupBox_3.setStyleSheet("color:white;\n"
+                                      "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))")
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.pushButton_5 = QtWidgets.QPushButton(self.groupBox_3)
+        self.pushButton_5.setGeometry(QtCore.QRect(200, 250, 111, 25))
+        self.pushButton_5.setStyleSheet("color:white;\n"
+                                        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))")
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.label_10 = QtWidgets.QLabel(self.groupBox_3)
+        self.label_10.setGeometry(QtCore.QRect(10, 30, 231, 21))
+        self.label_10.setStyleSheet("color: white; font-size: 10pt")
+        self.label_10.setObjectName("label_10")
+        self.listWidget_2 = QtWidgets.QListWidget(self.groupBox_3)
+        self.listWidget_2.setGeometry(QtCore.QRect(10, 70, 151, 111))
+        self.listWidget_2.setStyleSheet("color:white;\n"
+                                        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))")
+        self.listWidget_2.setObjectName("listWidget_2")
+        item = QtWidgets.QListWidgetItem()
+        self.listWidget_2.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        self.listWidget_2.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        self.listWidget_2.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        self.listWidget_2.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        self.listWidget_2.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        self.listWidget_2.addItem(item)
+        self.splitter = QtWidgets.QSplitter(self.groupBox_3)
+        self.splitter.setGeometry(QtCore.QRect(250, 70, 271, 20))
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter.setObjectName("splitter")
+        self.radioButton = QtWidgets.QRadioButton(self.splitter)
+        self.radioButton.setEnabled(True)
+        self.radioButton.setStyleSheet("color: rgb(255, 255, 255)")
+        self.radioButton.setChecked(True)
+        self.radioButton.setObjectName("radioButton")
+        self.radioButton_2 = QtWidgets.QRadioButton(self.splitter)
+        self.radioButton_2.setStyleSheet("color: rgb(255, 255, 255)")
+        self.radioButton_2.setObjectName("radioButton_2")
+        self.label_9 = QtWidgets.QLabel(self.groupBox_3)
+        self.label_9.setGeometry(QtCore.QRect(280, 30, 171, 21))
+        self.label_9.setStyleSheet("color: white; font-size: 10pt")
+        self.label_9.setObjectName("label_9")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(360, 0, 771, 81))
         self.label_4.setMinimumSize(QtCore.QSize(771, 81))
@@ -204,13 +243,6 @@ class Ui_MIAVIbyINCEDOS(object):
         self.listWidget.setStyleSheet("color:white;\n"
                                       "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.listWidget.setObjectName("listWidget")
-        self.progressBar = QtWidgets.QProgressBar(self.groupBox)
-        self.progressBar.setGeometry(QtCore.QRect(20, 470, 501, 23))
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setObjectName("progressBar")
-        self.progressBar.setStyleSheet("color:white;\n"
-                                       "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
-
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(60, 40, 68, 81))
         font = QtGui.QFont()
@@ -245,23 +277,43 @@ class Ui_MIAVIbyINCEDOS(object):
         self.label_8.setText(_translate(
             "MIAVIbyINCEDOS", "Выбраны следующие диски:"))
         self.pushButton_3.setText(_translate("MIAVIbyINCEDOS", "Назад"))
-        self.label_9.setText(_translate(
-            "MIAVIbyINCEDOS", "Выберите файловую систему для сканирования дискового пространства:"))
-        self.radioButton.setText(_translate("MIAVIbyINCEDOS", "NTFS"))
-        self.radioButton_2.setText(_translate("MIAVIbyINCEDOS", "Ext4"))
-        self.radioButton_3.setText(_translate("MIAVIbyINCEDOS", "RadioButton"))
-        self.radioButton_4.setText(_translate("MIAVIbyINCEDOS", "RadioButton"))
         self.tableWidget.setSortingEnabled(False)
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MIAVIbyINCEDOS", "Новый столбец"))
+        item.setText(_translate("MIAVIbyINCEDOS", "Путь к файлу"))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("MIAVIbyINCEDOS", "Новый столбец"))
+        item.setText(_translate("MIAVIbyINCEDOS", "Инода"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("MIAVIbyINCEDOS", "Новый столбец"))
+        item.setText(_translate("MIAVIbyINCEDOS", "Размер"))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("MIAVIbyINCEDOS", "Новый столбец"))
+        item.setText(_translate("MIAVIbyINCEDOS", "Дата доступа"))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("MIAVIbyINCEDOS", "Новый столбец"))
+        item.setText(_translate("MIAVIbyINCEDOS", "Дата модификации"))
+        item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("MIAVIbyINCEDOS", "Дата изменения"))
+        self.groupBox_3.setTitle(_translate("MIAVIbyINCEDOS", "Сортиоовка"))
+        self.pushButton_5.setText(_translate("MIAVIbyINCEDOS", "Сортировать"))
+        self.label_10.setText(_translate(
+            "MIAVIbyINCEDOS", "Выберите столбец для сортировки:"))
+        __sortingEnabled = self.listWidget_2.isSortingEnabled()
+        self.listWidget_2.setSortingEnabled(False)
+        item = self.listWidget_2.item(0)
+        item.setText(_translate("MIAVIbyINCEDOS", "Путь к файлу"))
+        item = self.listWidget_2.item(1)
+        item.setText(_translate("MIAVIbyINCEDOS", "Инода"))
+        item = self.listWidget_2.item(2)
+        item.setText(_translate("MIAVIbyINCEDOS", "Размер"))
+        item = self.listWidget_2.item(3)
+        item.setText(_translate("MIAVIbyINCEDOS", "Дата доступа"))
+        item = self.listWidget_2.item(4)
+        item.setText(_translate("MIAVIbyINCEDOS", "Дата модификации"))
+        item = self.listWidget_2.item(5)
+        item.setText(_translate("MIAVIbyINCEDOS", "Дата изменения"))
+        self.listWidget_2.setSortingEnabled(__sortingEnabled)
+        self.radioButton.setText(_translate(
+            "MIAVIbyINCEDOS", "по возрастанию"))
+        self.radioButton_2.setText(_translate("MIAVIbyINCEDOS", "по убыванию"))
+        self.label_9.setText(_translate(
+            "MIAVIbyINCEDOS", "Выберите вид сортировки:"))
         self.label_4.setText(_translate(
             "MIAVIbyINCEDOS", "ScanTool for Linux"))
         self.label_2.setText(_translate("MIAVIbyINCEDOS", "MIAVI"))
@@ -296,7 +348,7 @@ class Ui_MIAVIbyINCEDOS(object):
 
         def finddiskmount(disk):
             cmd = ['sudo', 'df', '-h']
-            out = str(call_cmd(cmd))
+            out = str(Global.call_cmd(cmd))
             for line in out.splitlines():
                 if line.startswith(disk) == True:
                     # print(line + '\n')
@@ -305,21 +357,10 @@ class Ui_MIAVIbyINCEDOS(object):
             # print(out)
             return out
 
-        def call_cmd(cmd):
-            # print(cmd)
-            self.progressBar.setValue(0)
-            process = Popen(cmd,
-                            stdout=PIPE,
-                            stderr=PIPE,
-                            shell=False,
-                            encoding='utf-8')
-            stdout, stderr = process.communicate()
-            out = stdout + stderr
-            return out
 
         def onclick():
             cmd = ['sudo', 'lshw', '-class', 'disk']
-            Global.output = call_cmd(cmd)
+            Global.output = Global.call_cmd(cmd)
             out = Global.output
             self.listWidget.clear()
             self.plainTextEdit.setPlainText(out)
@@ -361,18 +402,18 @@ class Ui_MIAVIbyINCEDOS(object):
             outputModify = ''
             outputChange = ''
             cmdFilePath = ['sudo', 'find', outputDiskPath]
-            outputFilePath = call_cmd(cmdFilePath)
+            outputFilePath = Global.call_cmd(cmdFilePath)
             for row in outputFilePath.splitlines():
                 cmdInode = ['stat', '--printf', '%i \n', row]
-                outputInode += call_cmd(cmdInode)
+                outputInode += Global.call_cmd(cmdInode)
                 cmdSize = ['stat', '--printf', '%s \n', row]
-                outputSize += call_cmd(cmdSize)
+                outputSize += Global.call_cmd(cmdSize)
                 cmdAccess = ['stat', '--printf', '%x \n', row]
-                outputAccess += call_cmd(cmdAccess)
+                outputAccess += Global.call_cmd(cmdAccess)
                 cmdModify = ['stat', '--printf', '%y \n', row]
-                outputModify += call_cmd(cmdModify)
+                outputModify += Global.call_cmd(cmdModify)
                 cmdChange = ['stat', '--printf', '%z \n', row]
-                outputChange += call_cmd(cmdChange)
+                outputChange += Global.call_cmd(cmdChange)
             self.tableWidget.clear()
             self.tableWidget.setColumnCount(6)
             self.tableWidget.setRowCount(len(outputFilePath.splitlines()))
@@ -405,6 +446,22 @@ class Ui_MIAVIbyINCEDOS(object):
             self.groupBox_2.hide()
             self.groupBox.show()
 
+        # def openFileNameDialog():
+        #         options = QFileDialog.Options()
+        #         options |= QFileDialog.DontUseNativeDialog
+        #         fileName, _ = QFileDialog.getOpenFileName(
+        #         QWidget(), "QFileDialog.getOpenFileName()", "", "All Files (*);;Python Files (*.py)", options=options)
+        #         if fileName:
+        #                 print(fileName)
+
+        # def openFileNamesDialog():
+        #         options = QFileDialog.Options()
+        #         options |= QFileDialog.DontUseNativeDialog
+        #         files, _ = QFileDialog.getOpenFileNames(
+        #         QWidget(), "QFileDialog.getOpenFileNames()", "", "All Files (*);;Python Files (*.py)", options=options)
+        #         if files:
+        #                 print(files)
+
         def saveFileDialog():
             options = QFileDialog.Options()
             options |= QFileDialog.DontUseNativeDialog
@@ -422,7 +479,9 @@ class Ui_MIAVIbyINCEDOS(object):
 
                         writer.writerow(fields)
 
-        def table_item_click():
+        def sorting():
+            if self.listWidget_2.currentRow() < 0:
+                return
             testlist0 = []
             testlist1 = []
             testlist2 = []
@@ -446,10 +505,11 @@ class Ui_MIAVIbyINCEDOS(object):
             for i in range(len(testlist2)):
                 array.append([testlist0[i], testlist1[i], testlist2[i],
                              testlist3[i], testlist4[i], testlist5[i]])
-
             array = sorted(
-                array, key=lambda x: x[self.tableWidget.currentColumn()])
+                array, key=lambda x: x[self.listWidget_2.currentRow()])
             # print(array)
+            if self.radioButton_2.isChecked():
+                array.reverse()
             file_info2(array, len(testlist2))
 
         def file_info2(arr, rows):
@@ -477,24 +537,107 @@ class Ui_MIAVIbyINCEDOS(object):
 
         self.groupBox_2.hide()  # второе окно - скрыть
         self.pushButton_4.hide()  # анализ - скрыть
-        # self.pushButton_2.hide()
         self.pushButton.clicked.connect(onclick)  # сканирование
         self.pushButton_3.clicked.connect(back_onclick)  # назад
         self.pushButton_4.clicked.connect(anal_onclick)  # анализ
         self.listWidget.clicked.connect(item_click)  # поле в листе
         self.pushButton_2.clicked.connect(
             saveFileDialog)  # далее - долбаный csv
-        self.tableWidget.clicked.connect(table_item_click)
-        # self.tableWidget.horizontalHeader.clicked.
+        self.pushButton_5.clicked.connect(sorting)
+
+
+class inpwd(object):
+    test_var = ''
+
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.setEnabled(True)
+        Form.resize(500, 500)
+        self.background = QtWidgets.QLabel(Form)
+        self.background.setGeometry(QtCore.QRect(-20, -40, 1621, 1081))
+        self.background.setText("")
+        self.background.setPixmap(QtGui.QPixmap("../../../../../usr/share/applications/background.jpg"))
+        self.background.setObjectName("background")
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("../../../../../usr/share/applications/icon.jpg"))
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setGeometry(QtCore.QRect(130, 260, 240, 15))
+        self.label_2.setStyleSheet("color:white;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.label_2.setObjectName("label_2")
+        self.plainTextEdit = QtWidgets.QPlainTextEdit(Form)
+        self.plainTextEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
+        self.plainTextEdit.setStyleSheet("color:white;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.pushButton_2 = QtWidgets.QPushButton(Form)
+        self.pushButton_2.setGeometry(QtCore.QRect(135, 360, 230, 50))
+        font = QtGui.QFont()
+        font.setFamily("HoloLens MDL2 Assets")
+        font.setPointSize(14)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setAcceptDrops(False)
+        self.pushButton_2.setAccessibleName("")
+        self.pushButton_2.setStyleSheet("color: black;\n"
+"background-color: rgb(255, 53, 56);\n"
+"border-color: rgb(93, 0, 1);\n"
+"border-radius: 25px 25px;\n"
+"hover {\n"
+"    background-color: #4CAF50; /* Green */\n"
+"    color: white;}")
+        self.pushButton_2.setObjectName("pushButton_2")
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Пароль"))
+        self.label_2.setText(_translate("Form", "Введите пароль администратора"))
+        self.pushButton_2.setText(_translate("Form", "Далее"))
+
+        def check_pwd():
+            # import subprocess
+            # test_var = self.plainTextEdit.toPlainText()
+            # cmd = ['sudo -S echo 1']
+            # process = subprocess.run(cmd,
+            #                 stdin =test_var,
+            #                 stdout=PIPE,
+            #                 stderr=PIPE,
+            #                 shell=True,
+            #                 encoding='utf-8')
+            # stdout, stderr = process.communicate()
+            # out = stdout + stderr
+            # print(out)
+            out = '1'
+            if out == '1':
+                print('done')
+                # print(inpwd.test_var)
+                open_programm()
+                pass
+
+        def open_programm():
+            global MIAVIbyINCEDOS
+            Form.close()
+            MIAVIbyINCEDOS = QtWidgets.QMainWindow()
+            ui = Ui_MIAVIbyINCEDOS()
+            ui.setupUi(MIAVIbyINCEDOS)
+            MIAVIbyINCEDOS.show()
+            Form.close()
+
+        self.pushButton_2.clicked.connect(check_pwd)
 
 
 def main():
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MIAVIbyINCEDOS = QtWidgets.QMainWindow()
-    ui = Ui_MIAVIbyINCEDOS()
-    ui.setupUi(MIAVIbyINCEDOS)
-    MIAVIbyINCEDOS.show()
+    Form = QtWidgets.QWidget()
+    ui = inpwd()
+    ui.setupUi(Form)
+    Form.show()
     sys.exit(app.exec_())
 
 

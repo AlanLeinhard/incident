@@ -15,3 +15,4 @@ ext4scanner.egg-info
 *.txt
 *.ui
 *.deb
+pwd*

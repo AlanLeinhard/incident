@@ -65,7 +65,7 @@
     </property>
     <property name="text">
      <string/>
-    </property>
+    </property> 
     <property name="pixmap">
      <pixmap>photo_2022-04-07_15-21-50.jpg</pixmap>
     </property>

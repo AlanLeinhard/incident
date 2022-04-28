@@ -232,6 +232,47 @@ hover {
       <string notr="true">color:white;
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))</string>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>Новый столбец</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Новый столбец</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Новый столбец</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Новый столбец</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Новый столбец</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="geometry">
+      <rect>
+       <x>17</x>
+       <y>520</y>
+       <width>501</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
     </widget>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -491,15 +532,15 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>background.jpg</pixmap>
+     <pixmap>../../../.designer/backup/background.jpg</pixmap>
     </property>
    </widget>
+   <zorder>groupBox</zorder>
    <zorder>background</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>label_4</zorder>
    <zorder>label_2</zorder>
    <zorder>label_5</zorder>
-   <zorder>groupBox</zorder>
   </widget>
  </widget>
  <resources/>

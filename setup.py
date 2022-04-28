@@ -35,9 +35,3 @@ setup(
     ],
     long_description=open('README.md').read(),
 )
-
-from subprocess import Popen, PIPE
-
-cmd = 'pip install -r requirements.txt'
-
-Popen(cmd, shell=True)

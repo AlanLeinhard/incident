@@ -575,11 +575,16 @@ class inpwd(object):
         self.label_2.setStyleSheet("color:white;\n"
                                    "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.label_2.setObjectName("label_2")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(Form)
-        self.plainTextEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
-        self.plainTextEdit.setStyleSheet("color:white;\n"
+        self.lineEdit = QtWidgets.QLineEdit(Form)
+        self.lineEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
+        self.lineEdit.setStyleSheet("color:white;\n"
                                          "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
-        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.lineEdit.setObjectName("lineEdit")
+        self.label_3 = QtWidgets.QLabel(Form)
+        self.label_3.setGeometry(QtCore.QRect(130, 340, 240, 15))
+        self.label_3.setStyleSheet("color:white;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.label_3.setObjectName("label_3")
         self.pushButton_2 = QtWidgets.QPushButton(Form)
         self.pushButton_2.setGeometry(QtCore.QRect(135, 360, 230, 50))
         font = QtGui.QFont()
@@ -606,10 +611,11 @@ class inpwd(object):
         self.label_2.setText(_translate(
             "Form", "Введите пароль администратора"))
         self.pushButton_2.setText(_translate("Form", "Далее"))
+        self.label_3.setText(_translate("Form", "<html><head/><body><p align=\"center\">неверный пароль</p></body></html>"))
 
         def check_pwd():
             import subprocess
-            test_var = self.plainTextEdit.toPlainText()
+            test_var = self.lineEdit.text()
             cmd = ['sudo -S echo 1']
             dmesg = subprocess.Popen(
                 ['echo', test_var], stdout=subprocess.PIPE)
@@ -642,21 +648,10 @@ class inpwd(object):
                 pass
             else:
                 print('error')
-                ii = 130
-                for i in range(5):
-                    import time
-                    ii -= i
-                    self.plainTextEdit.setGeometry(
-                        QtCore.QRect(ii, 300, 240, 31))
-                    time.sleep(0.1)
-                print('step')
-                for i in range(10):
-                    import time
-                    ii += i
-                    self.plainTextEdit.setGeometry(
-                        QtCore.QRect(ii, 300, 240, 31))
-                    time.sleep(0.1)
-                self.plainTextEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
+                self.label_3.show()
+                self.lineEdit.setStyleSheet("color:white;\n"
+                                            "background-color: rgb(239, 41, 41);")
+        
                 pass
 
         def open_programm():
@@ -668,7 +663,15 @@ class inpwd(object):
             MIAVIbyINCEDOS.show()
             Form.close()
 
+        def defolt_color_line():
+            self.lineEdit.setStyleSheet("color:white;\n"
+                                            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+            pass
+
         self.pushButton_2.clicked.connect(check_pwd)
+        self.pushButton_2.setAutoDefault(True)
+        self.lineEdit.textChanged.connect(defolt_color_line)
+        self.label_3.hide()
 
 
 def main():

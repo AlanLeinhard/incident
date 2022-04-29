@@ -24,18 +24,13 @@ class Ui_Form(object):
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("../../../../../usr/share/applications/icon.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("../../../../../usr/share/applications/img.jpg"))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Form)
         self.label_2.setGeometry(QtCore.QRect(130, 260, 240, 15))
         self.label_2.setStyleSheet("color:white;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.label_2.setObjectName("label_2")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(Form)
-        self.plainTextEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
-        self.plainTextEdit.setStyleSheet("color:white;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
-        self.plainTextEdit.setObjectName("plainTextEdit")
         self.pushButton_2 = QtWidgets.QPushButton(Form)
         self.pushButton_2.setGeometry(QtCore.QRect(135, 360, 230, 50))
         font = QtGui.QFont()
@@ -52,6 +47,16 @@ class Ui_Form(object):
 "    background-color: #4CAF50; /* Green */\n"
 "    color: white;}")
         self.pushButton_2.setObjectName("pushButton_2")
+        self.lineEdit = QtWidgets.QLineEdit(Form)
+        self.lineEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
+        self.lineEdit.setStyleSheet("color:white;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.lineEdit.setObjectName("lineEdit")
+        self.label_3 = QtWidgets.QLabel(Form)
+        self.label_3.setGeometry(QtCore.QRect(130, 340, 240, 15))
+        self.label_3.setStyleSheet("color:white;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.label_3.setObjectName("label_3")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -61,6 +66,7 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Пароль"))
         self.label_2.setText(_translate("Form", "Введите пароль администратора"))
         self.pushButton_2.setText(_translate("Form", "Далее"))
+        self.label_3.setText(_translate("Form", "<html><head/><body><p align=\"center\">неверный пароль</p></body></html>"))
 
 
 if __name__ == "__main__":

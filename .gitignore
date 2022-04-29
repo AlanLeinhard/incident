@@ -9,10 +9,6 @@ ext4scanner.egg-info
 
 **/venv
 
-**script*
-./ext4scanner/main**
 *.csv
 *.txt
-*.ui
 *.deb
-pwd*

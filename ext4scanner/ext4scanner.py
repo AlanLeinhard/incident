@@ -1,4 +1,5 @@
 from ast import For
+from time import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QFileDialog, QGridLayout, QLabel, QLineEdit, QPushButton, QDialog
 from subprocess import Popen, PIPE, call
@@ -23,11 +24,14 @@ class Global():
 
     def call_cmd(cmd):
         # print(cmd)
-        process = Popen(cmd,
+        dmesg = Popen(['echo', inpwd.test_var], stdout=PIPE)
+        process = Popen(['sudo', '-S'] + cmd,
+                        stdin=dmesg.stdout,
                         stdout=PIPE,
                         stderr=PIPE,
                         shell=False,
                         encoding='utf-8')
+        dmesg.stdout.close()
         stdout, stderr = process.communicate()
         out = stdout + stderr
         return out
@@ -347,7 +351,7 @@ class Ui_MIAVIbyINCEDOS(object):
                 return 'error'
 
         def finddiskmount(disk):
-            cmd = ['sudo', 'df', '-h']
+            cmd = ['df', '-h']
             out = str(Global.call_cmd(cmd))
             for line in out.splitlines():
                 if line.startswith(disk) == True:
@@ -357,9 +361,8 @@ class Ui_MIAVIbyINCEDOS(object):
             # print(out)
             return out
 
-
         def onclick():
-            cmd = ['sudo', 'lshw', '-class', 'disk']
+            cmd = ['lshw', '-class', 'disk']
             Global.output = Global.call_cmd(cmd)
             out = Global.output
             self.listWidget.clear()
@@ -401,7 +404,7 @@ class Ui_MIAVIbyINCEDOS(object):
             outputAccess = ''
             outputModify = ''
             outputChange = ''
-            cmdFilePath = ['sudo', 'find', outputDiskPath]
+            cmdFilePath = ['find', outputDiskPath]
             outputFilePath = Global.call_cmd(cmdFilePath)
             for row in outputFilePath.splitlines():
                 cmdInode = ['stat', '--printf', '%i \n', row]
@@ -445,6 +448,8 @@ class Ui_MIAVIbyINCEDOS(object):
         def back_onclick():
             self.groupBox_2.hide()
             self.groupBox.show()
+            self.pushButton_4.hide()
+            self.pushButton.show()
 
         # def openFileNameDialog():
         #         options = QFileDialog.Options()
@@ -556,22 +561,24 @@ class inpwd(object):
         self.background = QtWidgets.QLabel(Form)
         self.background.setGeometry(QtCore.QRect(-20, -40, 1621, 1081))
         self.background.setText("")
-        self.background.setPixmap(QtGui.QPixmap("../../../../../usr/share/applications/background.jpg"))
+        self.background.setPixmap(QtGui.QPixmap(
+            "../../../../../usr/share/applications/background.jpg"))
         self.background.setObjectName("background")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("../../../../../usr/share/applications/icon.jpg"))
+        self.label.setPixmap(QtGui.QPixmap(
+            "../../../../../usr/share/applications/icon.jpg"))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Form)
         self.label_2.setGeometry(QtCore.QRect(130, 260, 240, 15))
         self.label_2.setStyleSheet("color:white;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+                                   "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.label_2.setObjectName("label_2")
         self.plainTextEdit = QtWidgets.QPlainTextEdit(Form)
         self.plainTextEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
         self.plainTextEdit.setStyleSheet("color:white;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+                                         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.pushButton_2 = QtWidgets.QPushButton(Form)
         self.pushButton_2.setGeometry(QtCore.QRect(135, 360, 230, 50))
@@ -582,12 +589,12 @@ class inpwd(object):
         self.pushButton_2.setAcceptDrops(False)
         self.pushButton_2.setAccessibleName("")
         self.pushButton_2.setStyleSheet("color: black;\n"
-"background-color: rgb(255, 53, 56);\n"
-"border-color: rgb(93, 0, 1);\n"
-"border-radius: 25px 25px;\n"
-"hover {\n"
-"    background-color: #4CAF50; /* Green */\n"
-"    color: white;}")
+                                        "background-color: rgb(255, 53, 56);\n"
+                                        "border-color: rgb(93, 0, 1);\n"
+                                        "border-radius: 25px 25px;\n"
+                                        "hover {\n"
+                                        "    background-color: #4CAF50; /* Green */\n"
+                                        "    color: white;}")
         self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Form)
@@ -596,27 +603,60 @@ class inpwd(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Пароль"))
-        self.label_2.setText(_translate("Form", "Введите пароль администратора"))
+        self.label_2.setText(_translate(
+            "Form", "Введите пароль администратора"))
         self.pushButton_2.setText(_translate("Form", "Далее"))
 
         def check_pwd():
-            # import subprocess
-            # test_var = self.plainTextEdit.toPlainText()
-            # cmd = ['sudo -S echo 1']
-            # process = subprocess.run(cmd,
-            #                 stdin =test_var,
-            #                 stdout=PIPE,
-            #                 stderr=PIPE,
-            #                 shell=True,
-            #                 encoding='utf-8')
-            # stdout, stderr = process.communicate()
-            # out = stdout + stderr
-            # print(out)
-            out = '1'
-            if out == '1':
-                print('done')
+            import subprocess
+            test_var = self.plainTextEdit.toPlainText()
+            cmd = ['sudo -S echo 1']
+            dmesg = subprocess.Popen(
+                ['echo', test_var], stdout=subprocess.PIPE)
+            process = subprocess.Popen(cmd,
+                                       stdin=dmesg.stdout,
+                                       stdout=PIPE,
+                                       stderr=PIPE,
+                                       shell=True,
+                                       encoding='utf-8')
+            dmesg.stdout.close()
+            dmesg = subprocess.Popen(
+                ['echo', test_var], stdout=subprocess.PIPE)
+            process = subprocess.Popen(cmd,
+                                       stdin=dmesg.stdout,
+                                       stdout=PIPE,
+                                       stderr=PIPE,
+                                       shell=True,
+                                       encoding='utf-8')
+            dmesg.stdout.close()
+            stdout, stderr = process.communicate()  # костыль
+            out = stdout + stderr  # костыль
+            # print(process.returncode)
+            # out = '1'
+            check = process.returncode
+            # print(check)
+            if not check:
+                # print('done')
                 # print(inpwd.test_var)
                 open_programm()
+                pass
+            else:
+                print('error')
+                ii = 130
+                for i in range(5):
+                    import time
+                    ii -= i
+                    self.plainTextEdit.setGeometry(
+                        QtCore.QRect(ii, 300, 240, 31))
+                    time.sleep(0.1)
+                print('step')
+                for i in range(10):
+                    import time
+                    ii += i
+                    self.plainTextEdit.setGeometry(
+                        QtCore.QRect(ii, 300, 240, 31))
+                    time.sleep(0.1)
+                self.plainTextEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
                 pass
 
         def open_programm():

@@ -662,7 +662,7 @@ class inpwd(object):
             ui = Ui_MIAVIbyINCEDOS()
             ui.setupUi(MIAVIbyINCEDOS)
             MIAVIbyINCEDOS.show()
-            Form.close()
+            Form.hide()
 
         def defolt_color_line():
             self.lineEdit.setStyleSheet("color:white;\n"

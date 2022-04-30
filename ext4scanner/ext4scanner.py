@@ -568,7 +568,7 @@ class inpwd(object):
         self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
         self.label.setText("")
         self.label.setPixmap(QtGui.QPixmap(
-            "../../../../../usr/share/applications/img.jpg"))
+            "../../../../../usr/share/applications/eye.png"))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Form)
         self.label_2.setGeometry(QtCore.QRect(130, 260, 240, 15))

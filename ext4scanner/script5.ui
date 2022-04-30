@@ -6,9 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1316</width>
-    <height>863</height>
-   </rect>
+    <width>1316
+    </width>
+    <height>863</height></rect>
   </property>
   <property name="minimumSize">
    <size>
@@ -96,8 +96,6 @@
 background-color: rgb(255, 53, 56);
 border-color: rgb(93, 0, 1);
 border-radius: 25px 25px;
--webkit-transition-duration: 0.4s;
-transition-duration: 0.4s;
 hover {
     background-color: #4CAF50; /* Green */
     color: white;}</string>
@@ -148,8 +146,6 @@ hover {
 background-color: rgb(255, 255, 255);
 border-color: rgb(93, 0, 1);
 border-radius: 25px 25px;
--webkit-transition-duration: 0.4s;
-transition-duration: 0.4s;
 hover {
     background-color: #4CAF50; /* Green */
     color: black;}</string>
@@ -157,67 +153,6 @@ hover {
      <property name="text">
       <string>Назад</string>
      </property>
-    </widget>
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>270</y>
-       <width>581</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: white; font-size: 10pt</string>
-     </property>
-     <property name="text">
-      <string>Выберите файловую систему для сканирования дискового пространства:</string>
-     </property>
-    </widget>
-    <widget class="QSplitter" name="splitter">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>320</y>
-       <width>561</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <widget class="QRadioButton" name="radioButton">
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255)</string>
-      </property>
-      <property name="text">
-       <string>NTFS</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_2">
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255)</string>
-      </property>
-      <property name="text">
-       <string>Ext4</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_3">
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255)</string>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_4">
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255)</string>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QTableWidget" name="tableWidget">
      <property name="geometry">
@@ -232,6 +167,184 @@ hover {
       <string notr="true">color:white;
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))</string>
      </property>
+     <property name="sortingEnabled">
+      <bool>false</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>Путь к файлу</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Инода</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Размер</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Дата доступа</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Дата модификации</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Дата изменения</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>521</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:white;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))</string>
+     </property>
+     <property name="title">
+      <string>Сортиоовка</string>
+     </property>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>250</y>
+        <width>111</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))</string>
+      </property>
+      <property name="text">
+       <string>Сортировать</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>231</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; font-size: 10pt</string>
+      </property>
+      <property name="text">
+       <string>Выберите столбец для сортировки:</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>151</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:white;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:0.994975 rgba(255, 255, 255, 0))</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Путь к файлу</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Инода</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Размер</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Дата доступа</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Дата модификации</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Дата изменения</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QSplitter" name="splitter">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>70</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255)</string>
+       </property>
+       <property name="text">
+        <string>по возрастанию</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255)</string>
+       </property>
+       <property name="text">
+        <string>по убыванию</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>30</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; font-size: 10pt</string>
+      </property>
+      <property name="text">
+       <string>Выберите вид сортировки:</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -354,8 +467,6 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
       <string notr="true">background-color: rgb(255, 53, 56);
 border-color: rgb(93, 0, 1);
 border-radius: 25px 25px;
--webkit-transition-duration: 0.4s;
-transition-duration: 0.4s;
 hover {
     background-color: #4CAF50; /* Green */
     color: white;}</string>
@@ -389,8 +500,6 @@ hover {
       <string notr="true">background-color: rgb(255, 53, 56);
 border-color: rgb(93, 0, 1);
 border-radius: 25px 25px;
--webkit-transition-duration: 0.4s;
-transition-duration: 0.4s;
 hover {
     background-color: #4CAF50; /* Green */
     color: white;}</string>
@@ -491,7 +600,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>background.jpg</pixmap>
+     <pixmap>../../../../../usr/share/applications/background.jpg</pixmap>
     </property>
    </widget>
    <zorder>background</zorder>

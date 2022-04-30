@@ -18,12 +18,15 @@ setup(
     #     'PyQt5-sip',
     #     'sip',
     #     'toml'],
-    entry_points = {
-        'gui_scripts' : ['ext4scanner = ext4scanner.ext4scanner:main']
+    entry_points={
+        'gui_scripts': ['ext4scanner = ext4scanner.ext4scanner:main']
     },
-    data_files = [
-        ('share/applications/', ['ext4scanner.desktop'])
-        ],
+    data_files=[
+        ('share/applications/', ['ext4scanner.desktop']),
+        ('share/applications/', ['icon.jpg']),
+        ('share/applications/', ['eye.jpg']),
+        ('share/applications/', ['./ext4scanner/background.jpg'])
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment :: GPU',
@@ -35,9 +38,3 @@ setup(
     ],
     long_description=open('README.md').read(),
 )
-
-from subprocess import Popen, PIPE
-
-cmd = 'pip install -r requirements.txt'
-
-Popen(cmd, shell=True)

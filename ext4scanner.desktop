@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=0.1.1
+Type=Application
+Name=ext4scanner
+Comment=test ext4scanner
+Exec=ext4scanner
+Icon=/usr/share/applications/eye.jpg
+Categories=Utility;
+Terminal=false
+StartupNotify=true
+StartupWMClass=ext4scanner
+

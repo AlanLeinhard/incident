@@ -644,6 +644,7 @@ class inpwd(object):
             if not check:
                 # print('done')
                 # print(inpwd.test_var)
+                inpwd.test_var = test_var
                 open_programm()
                 pass
             else:

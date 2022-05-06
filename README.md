@@ -93,8 +93,8 @@ cd /usr/bin
 ext4scanner
 
 
-dpkg -l | grep python3-ext4
-sudo dpkg -r python3-ext4scanner 
+dpkg -l | grep ext4
+sudo dpkg -r ext4scanner 
 
 
 

@@ -4,8 +4,6 @@ include README.md
  
 include requirements.txt
 
-include icon.jpg
-
-include img.jpg
+include eye.png
 
 include ./ext4scanner/background.jpg

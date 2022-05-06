@@ -24,7 +24,7 @@ class Global():
 
     def call_cmd(cmd):
         # print(cmd)
-        dmesg = Popen(['echo', inpwd.test_var], stdout=PIPE)
+        dmesg = Popen(['echo', inpwd.password], stdout=PIPE)
         process = Popen(['sudo', '-S'] + cmd,
                         stdin=dmesg.stdout,
                         stdout=PIPE,
@@ -338,8 +338,8 @@ class Ui_MIAVIbyINCEDOS(object):
                     out = out + str(line) + '\n'
                 else:
                     if i == 2:
-                        for strr in out.splitlines():
-                            if strr.startswith(word) == True:
+                        for string in out.splitlines():
+                            if string.startswith(word) == True:
                                 result = True
                                 break
                         if not result:
@@ -385,14 +385,10 @@ class Ui_MIAVIbyINCEDOS(object):
             self.pushButton_4.show()
             self.pushButton.hide()
 
-        def file_info(strInfo, col, ifint):
+        def file_info(strInfo, col):
             i = 0
             for line in strInfo.splitlines():
                 item = line.partition(',')[0]
-                if ifint:
-                    item = int(item)
-                    # print(item)
-                    # print(self.tableWidget.cellWidget(i, col))
                 self.tableWidget.setItem(
                     i, col, QtWidgets.QTableWidgetItem(item))
                 i += 1
@@ -428,17 +424,17 @@ class Ui_MIAVIbyINCEDOS(object):
                 'Дата модификации',
                 'Дата изменения'
             ])
-            file_info(outputFilePath, 0, False)
-            file_info(outputInode, 1, False)
-            file_info(outputSize, 2, False)
-            file_info(outputAccess.replace('.', ','), 3, False)
-            file_info(outputModify.replace('.', ','), 4, False)
-            file_info(outputChange.replace('.', ','), 5, False)
+            file_info(outputFilePath, 0)
+            file_info(outputInode, 1)
+            file_info(outputSize, 2)
+            file_info(outputAccess.replace('.', ','), 3)
+            file_info(outputModify.replace('.', ','), 4)
+            file_info(outputChange.replace('.', ','), 5)
             self.tableWidget.resizeColumnsToContents()
             self.tableWidget.resizeRowsToContents()
             self.tableWidget.sortByColumn(3, QtCore.Qt.AscendingOrder)
 
-        def anal_onclick():
+        def analize_onclick():
             self.groupBox.hide()
             self.groupBox_2.show()
             info = str(self.listWidget.currentItem().text())
@@ -487,35 +483,36 @@ class Ui_MIAVIbyINCEDOS(object):
         def sorting():
             if self.listWidget_2.currentRow() < 0:
                 return
-            testlist0 = []
-            testlist1 = []
-            testlist2 = []
-            testlist3 = []
-            testlist4 = []
-            testlist5 = []
+                
+            outputDiskPath = []
+            outputInode = []
+            outputSize = []
+            outputAccess = []
+            outputModify = []
+            outputChange = []
             for rowNumber in range(self.tableWidget.rowCount()):
                 fields = self.tableWidget.item(rowNumber, 0).text()
-                testlist0 += [fields]
+                outputDiskPath += [fields]
                 fields = self.tableWidget.item(rowNumber, 1).text()
-                testlist1 += [int(fields)]
+                outputInode += [int(fields)]
                 fields = self.tableWidget.item(rowNumber, 2).text()
-                testlist2 += [int(fields)]
+                outputSize += [int(fields)]
                 fields = self.tableWidget.item(rowNumber, 3).text()
-                testlist3 += [fields]
+                outputAccess += [fields]
                 fields = self.tableWidget.item(rowNumber, 4).text()
-                testlist4 += [fields]
+                outputModify += [fields]
                 fields = self.tableWidget.item(rowNumber, 5).text()
-                testlist5 += [fields]
+                outputChange += [fields]
             array = []
-            for i in range(len(testlist2)):
-                array.append([testlist0[i], testlist1[i], testlist2[i],
-                             testlist3[i], testlist4[i], testlist5[i]])
+            for i in range(len(outputSize)):
+                array.append([outputDiskPath[i], outputInode[i], outputSize[i],
+                             outputAccess[i], outputModify[i], outputChange[i]])
             array = sorted(
                 array, key=lambda x: x[self.listWidget_2.currentRow()])
             # print(array)
             if self.radioButton_2.isChecked():
                 array.reverse()
-            file_info2(array, len(testlist2))
+            file_info2(array, len(outputSize))
 
         def file_info2(arr, rows):
             self.tableWidget.clear()
@@ -544,15 +541,15 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton_4.hide()  # анализ - скрыть
         self.pushButton.clicked.connect(onclick)  # сканирование
         self.pushButton_3.clicked.connect(back_onclick)  # назад
-        self.pushButton_4.clicked.connect(anal_onclick)  # анализ
+        self.pushButton_4.clicked.connect(analize_onclick)  # анализ
         self.listWidget.clicked.connect(item_click)  # поле в листе
         self.pushButton_2.clicked.connect(
-            saveFileDialog)  # далее - долбаный csv
+            saveFileDialog)  # далее - сохранение csv
         self.pushButton_5.clicked.connect(sorting)
 
 
 class inpwd(object):
-    test_var = ''
+    password = ''
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -561,14 +558,12 @@ class inpwd(object):
         self.background = QtWidgets.QLabel(Form)
         self.background.setGeometry(QtCore.QRect(-20, -40, 1621, 1081))
         self.background.setText("")
-        self.background.setPixmap(QtGui.QPixmap(
-            "../../../../../usr/share/applications/background.jpg"))
+        self.background.setPixmap(QtGui.QPixmap("/usr/share/applications/background.jpg"))
         self.background.setObjectName("background")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(
-            "../../../../../usr/share/applications/eye.png"))
+        self.label.setPixmap(QtGui.QPixmap("/usr/share/applications/eye.png"))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Form)
         self.label_2.setGeometry(QtCore.QRect(130, 260, 240, 15))
@@ -615,10 +610,10 @@ class inpwd(object):
 
         def check_pwd():
             import subprocess
-            test_var = self.lineEdit.text()
+            password = self.lineEdit.text()
             cmd = ['sudo -S echo 1']
             dmesg = subprocess.Popen(
-                ['echo', test_var], stdout=subprocess.PIPE)
+                ['echo', password], stdout=subprocess.PIPE)
             process = subprocess.Popen(cmd,
                                        stdin=dmesg.stdout,
                                        stdout=PIPE,
@@ -627,7 +622,7 @@ class inpwd(object):
                                        encoding='utf-8')
             dmesg.stdout.close()
             dmesg = subprocess.Popen(
-                ['echo', test_var], stdout=subprocess.PIPE)
+                ['echo', password], stdout=subprocess.PIPE)
             process = subprocess.Popen(cmd,
                                        stdin=dmesg.stdout,
                                        stdout=PIPE,
@@ -637,21 +632,15 @@ class inpwd(object):
             dmesg.stdout.close()
             stdout, stderr = process.communicate()  # костыль
             out = stdout + stderr  # костыль
-            # print(process.returncode)
-            # out = '1'
             check = process.returncode
-            # print(check)
             if not check:
-                # print('done')
-                # print(inpwd.test_var)
                 open_programm()
                 pass
             else:
                 print('error')
                 self.label_3.show()
                 self.lineEdit.setStyleSheet("color:white;\n"
-                                            "background-color: rgb(239, 41, 41);")
-        
+                                            "background-color: rgb(239, 41, 41);")        
                 pass
 
         def open_programm():

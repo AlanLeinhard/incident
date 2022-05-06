@@ -23,7 +23,6 @@ setup(
     },
     data_files=[
         ('share/applications/', ['ext4scanner.desktop']),
-        ('share/applications/', ['icon.jpg']),
         ('share/applications/', ['eye.jpg']),
         ('share/applications/', ['./ext4scanner/background.jpg'])
     ],

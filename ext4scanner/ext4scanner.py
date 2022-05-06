@@ -483,7 +483,7 @@ class Ui_MIAVIbyINCEDOS(object):
         def sorting():
             if self.listWidget_2.currentRow() < 0:
                 return
-                
+
             outputDiskPath = []
             outputInode = []
             outputSize = []
@@ -558,7 +558,8 @@ class inpwd(object):
         self.background = QtWidgets.QLabel(Form)
         self.background.setGeometry(QtCore.QRect(-20, -40, 1621, 1081))
         self.background.setText("")
-        self.background.setPixmap(QtGui.QPixmap("/usr/share/applications/background.jpg"))
+        self.background.setPixmap(QtGui.QPixmap(
+            "/usr/share/applications/background.jpg"))
         self.background.setObjectName("background")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
@@ -573,12 +574,12 @@ class inpwd(object):
         self.lineEdit = QtWidgets.QLineEdit(Form)
         self.lineEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
         self.lineEdit.setStyleSheet("color:white;\n"
-                                         "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+                                    "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.lineEdit.setObjectName("lineEdit")
         self.label_3 = QtWidgets.QLabel(Form)
         self.label_3.setGeometry(QtCore.QRect(130, 340, 240, 15))
         self.label_3.setStyleSheet("color:white;\n"
-"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+                                   "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.label_3.setObjectName("label_3")
         self.pushButton_2 = QtWidgets.QPushButton(Form)
         self.pushButton_2.setGeometry(QtCore.QRect(135, 360, 230, 50))
@@ -606,7 +607,8 @@ class inpwd(object):
         self.label_2.setText(_translate(
             "Form", "Введите пароль администратора"))
         self.pushButton_2.setText(_translate("Form", "Далее"))
-        self.label_3.setText(_translate("Form", "<html><head/><body><p align=\"center\">неверный пароль</p></body></html>"))
+        self.label_3.setText(_translate(
+            "Form", "<html><head/><body><p align=\"center\">неверный пароль</p></body></html>"))
 
         def check_pwd():
             import subprocess
@@ -640,7 +642,7 @@ class inpwd(object):
                 print('error')
                 self.label_3.show()
                 self.lineEdit.setStyleSheet("color:white;\n"
-                                            "background-color: rgb(239, 41, 41);")        
+                                            "background-color: rgb(239, 41, 41);")
                 pass
 
         def open_programm():
@@ -654,7 +656,7 @@ class inpwd(object):
 
         def defolt_color_line():
             self.lineEdit.setStyleSheet("color:white;\n"
-                                            "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+                                        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
             pass
 
         self.pushButton_2.clicked.connect(check_pwd)

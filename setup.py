@@ -23,7 +23,7 @@ setup(
     },
     data_files=[
         ('share/applications/', ['ext4scanner.desktop']),
-        ('share/applications/', ['eye.jpg']),
+        ('share/applications/', ['eye.png']),
         ('share/applications/', ['./ext4scanner/background.jpg'])
     ],
     classifiers=[

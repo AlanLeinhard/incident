@@ -12,3 +12,4 @@ ext4scanner.egg-info
 *.csv
 *.txt
 *.deb
+**/.ui

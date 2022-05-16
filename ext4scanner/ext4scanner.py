@@ -1,4 +1,5 @@
 from ast import For
+from asyncio.proactor_events import _ProactorBaseWritePipeTransport
 from time import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QFileDialog, QGridLayout, QLabel, QLineEdit, QPushButton, QDialog
@@ -8,24 +9,43 @@ import csv
 # from multiprocessing import Process
 
 
-parser = argparse.ArgumentParser(description='A tutorial of argparse!')
+parser = argparse.ArgumentParser()
 parser.add_argument("--install", action="store_true",
                     help="This is the 'install' variable")
 args = parser.parse_args()
-a = args.install
+parametr = args.install
 
-if a:
+if parametr:
     cmd = 'sudo -i apt install python3-pyqt5 && sudo apt install python3-pip && pip install packaging==21.3 pyparsing==3.0.7 PyQt5==5.15.6 PyQt5-Qt5==5.15.2 PyQt5-sip==12.9.1 sip==6.5.1 toml==0.10.2'
     call(cmd, shell=True)
 
 
 class Global():
     output = str('')
+    done = 0.0
+    cut = 0.0
+
+    def open_terminal(cmd):
+        dmesg = Popen(['echo', inpwd.test_var], stdout=PIPE)
+        cmd = ['sudo -H gnome-terminal --command="'+ str(cmd) + '" >echo $']
+        print(cmd)
+        process = Popen(cmd,
+                        stdin=dmesg.stdout,
+                        stdout=PIPE,
+                        stderr=PIPE,
+                        shell=True,
+                        encoding='utf-8')
+        dmesg.stdout.close()
+        stdout, stderr = process.communicate()
+        out = stdout + stderr
+        print(out)
+        return out
+        pass
 
     def call_cmd(cmd):
         # print(cmd)
         dmesg = Popen(['echo', inpwd.test_var], stdout=PIPE)
-        process = Popen(['sudo', '-S'] + cmd,
+        process = Popen(['sudo'] + cmd,
                         stdin=dmesg.stdout,
                         stdout=PIPE,
                         stderr=PIPE,
@@ -34,6 +54,7 @@ class Global():
         dmesg.stdout.close()
         stdout, stderr = process.communicate()
         out = stdout + stderr
+        print(out)
         return out
 
 
@@ -247,8 +268,12 @@ class Ui_MIAVIbyINCEDOS(object):
         self.listWidget.setStyleSheet("color:white;\n"
                                       "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
         self.listWidget.setObjectName("listWidget")
+        self.progressBar = QtWidgets.QProgressBar(self.groupBox)
+        self.progressBar.setGeometry(QtCore.QRect(30, 530, 471, 23))
+        self.progressBar.setProperty("value", int(Global.done))
+        self.progressBar.setObjectName("progressBar")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(60, 40, 68, 81))
+        self.label_5.setGeometry(QtCore.QRect(60, 40, 150, 81))
         font = QtGui.QFont()
         font.setFamily("MS UI Gothic")
         self.label_5.setFont(font)
@@ -277,7 +302,7 @@ class Ui_MIAVIbyINCEDOS(object):
         MIAVIbyINCEDOS.setWindowTitle(_translate(
             "MIAVIbyINCEDOS", "MIAVI by INCEDOS"))
         self.label_11.setText(_translate("MIAVIbyINCEDOS", "TextLabel"))
-        self.pushButton_2.setText(_translate("MIAVIbyINCEDOS", "Далее"))
+        self.pushButton_2.setText(_translate("MIAVIbyINCEDOS", "Сохранить"))
         self.label_8.setText(_translate(
             "MIAVIbyINCEDOS", "Выбраны следующие диски:"))
         self.pushButton_3.setText(_translate("MIAVIbyINCEDOS", "Назад"))
@@ -362,6 +387,7 @@ class Ui_MIAVIbyINCEDOS(object):
             return out
 
         def onclick():
+            # cmd = ['lshw', '-class', 'disk']
             cmd = ['lshw', '-class', 'disk']
             Global.output = Global.call_cmd(cmd)
             out = Global.output
@@ -406,17 +432,52 @@ class Ui_MIAVIbyINCEDOS(object):
             outputChange = ''
             cmdFilePath = ['find', outputDiskPath]
             outputFilePath = Global.call_cmd(cmdFilePath)
+            i = 0
             for row in outputFilePath.splitlines():
+                i += 1
+            Global.cut = 100/5/i
+            # Global.done += Global.cut*i   
+
+            # FilePaths = []
+            # for row in outputFilePath.splitlines():
+            #     FilePaths += [row]
+            # outputInode = anal_output(i, FilePaths)
+            
+            for row in outputFilePath.splitlines():
+                Global.done += Global.cut
+                print(Global.done)
                 cmdInode = ['stat', '--printf', '%i \n', row]
+                # Global.done += Global.cut
+                self.progressBar.setProperty("value", int(Global.done))
                 outputInode += Global.call_cmd(cmdInode)
+            for row in outputFilePath.splitlines():
+                Global.done += Global.cut
+                print(Global.done)
                 cmdSize = ['stat', '--printf', '%s \n', row]
                 outputSize += Global.call_cmd(cmdSize)
+                # Global.done += Global.cut
+                self.progressBar.setProperty("value", int(Global.done))
+            for row in outputFilePath.splitlines():
+                Global.done += Global.cut
+                print(Global.done)
                 cmdAccess = ['stat', '--printf', '%x \n', row]
                 outputAccess += Global.call_cmd(cmdAccess)
+                # Global.done += Global.cut
+                self.progressBar.setProperty("value", int(Global.done))
+            for row in outputFilePath.splitlines():
+                Global.done += Global.cut
+                print(Global.done)
                 cmdModify = ['stat', '--printf', '%y \n', row]
                 outputModify += Global.call_cmd(cmdModify)
+                # Global.done += Global.cut
+                self.progressBar.setProperty("value", int(Global.done))
+            for row in outputFilePath.splitlines():
+                Global.done += Global.cut
+                print(Global.done)
                 cmdChange = ['stat', '--printf', '%z \n', row]
                 outputChange += Global.call_cmd(cmdChange)
+                # Global.done += Global.cut
+                self.progressBar.setProperty("value", int(Global.done))
             self.tableWidget.clear()
             self.tableWidget.setColumnCount(6)
             self.tableWidget.setRowCount(len(outputFilePath.splitlines()))
@@ -430,13 +491,30 @@ class Ui_MIAVIbyINCEDOS(object):
             ])
             file_info(outputFilePath, 0, False)
             file_info(outputInode, 1, False)
-            file_info(outputSize, 2, False)
-            file_info(outputAccess.replace('.', ','), 3, False)
-            file_info(outputModify.replace('.', ','), 4, False)
-            file_info(outputChange.replace('.', ','), 5, False)
+            # file_info(outputSize, 2, False)
+            # file_info(outputAccess.replace('.', ','), 3, False)
+            # file_info(outputModify.replace('.', ','), 4, False)
+            # file_info(outputChange.replace('.', ','), 5, False)
             self.tableWidget.resizeColumnsToContents()
             self.tableWidget.resizeRowsToContents()
             self.tableWidget.sortByColumn(3, QtCore.Qt.AscendingOrder)
+
+        def anal_output(a, array):
+            if a > 1 :
+                file = array[0]
+                array.pop(0)
+                # anal_output(a-1, array)
+                print(file)
+                print(a)
+                cmd = ['stat', '--printf', '%i \n', file]
+                output = Global.call_cmd(cmd)
+                Global.done += Global.cut
+                # self.progressBar.setProperty("value", int(Global.done))
+            else:
+                return('')
+                
+            return output + anal_output(a-1, array)
+            pass
 
         def anal_onclick():
             self.groupBox.hide()
@@ -549,9 +627,10 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton_2.clicked.connect(
             saveFileDialog)  # далее - долбаный csv
         self.pushButton_5.clicked.connect(sorting)
+        self.progressBar.setProperty("value", int(Global.done))
 
 
-class inpwd(object):
+class inpwd(QtWidgets.QWidget):
     test_var = ''
 
     def setupUi(self, Form):
@@ -579,6 +658,8 @@ class inpwd(object):
         self.lineEdit.setGeometry(QtCore.QRect(130, 300, 240, 31))
         self.lineEdit.setStyleSheet("color:white;\n"
                                          "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.lineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit")
         self.label_3 = QtWidgets.QLabel(Form)
         self.label_3.setGeometry(QtCore.QRect(130, 340, 240, 15))
@@ -652,7 +733,6 @@ class inpwd(object):
                 self.label_3.show()
                 self.lineEdit.setStyleSheet("color:white;\n"
                                             "background-color: rgb(239, 41, 41);")
-        
                 pass
 
         def open_programm():
@@ -667,12 +747,31 @@ class inpwd(object):
         def defolt_color_line():
             self.lineEdit.setStyleSheet("color:white;\n"
                                             "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+            # text = self.lineEdit.text()
+            # print(text)
+
+            # В этом блоке будет работать слушатель событий.
+            # with keyboard.Events() as event:
+            #     print(event)
+            # if text
             pass
 
         self.pushButton_2.clicked.connect(check_pwd)
         self.pushButton_2.setAutoDefault(True)
         self.lineEdit.textChanged.connect(defolt_color_line)
         self.label_3.hide()
+        # self.event(self)
+
+        # inpwd.keyPressEvent(self, event)
+        
+    def keyPressEvent(self, e):
+        if e.type() == QtCore.QEvent.KeyPress:
+            if (e.key() == 16777221) or (e.key() == 16777220):
+                print('done')
+        return QtWidgets.QWidget.event(self, e) # Отправляем дальше
+        return
+
+
 
 
 def main():
@@ -687,3 +786,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

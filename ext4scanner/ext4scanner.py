@@ -390,8 +390,8 @@ class Ui_MIAVIbyINCEDOS(object):
                     out = out + str(line) + '\n'
                 else:
                     if i == 2:
-                        for string in out.splitlines():
-                            if string.startswith(word) == True:
+                        for strr in out.splitlines():
+                            if strr.startswith(word) == True:
                                 result = True
                                 break
                         if not result:
@@ -402,25 +402,9 @@ class Ui_MIAVIbyINCEDOS(object):
             else:
                 return 'error'
 
-        def anal_onclick():
+        def analize_output():
             info = str(self.listWidget.currentItem().text())
             info = str(info[info.find('       логическое имя:'):])
-            output = Global.output
-            start = '  *'
-            out = search_for_in(start, info, output)
-            self.plainTextEdit.setPlainText('')
-            self.plainTextEdit.insertPlainText(out + '\n')
-            self.label_11.setText(info[23:])
-            self.pushButton_4.show()
-            self.pushButton.hide()
-
-        def file_info(strInfo, col):
-            i = 0
-            for line in strInfo.splitlines():
-                item = line.partition(',')[0]
-                self.tableWidget.setItem(
-                    i, col, QtWidgets.QTableWidgetItem(item))
-                i += 1
 
             outputDiskPath = finddiskmount(self.label_11.text())
             outputInode = ''
@@ -474,12 +458,12 @@ class Ui_MIAVIbyINCEDOS(object):
                 'Дата модификации',
                 'Дата изменения'
             ])
-            file_info(outputFilePath, 0)
-            file_info(outputInode, 1)
-            file_info(outputSize, 2)
-            file_info(outputAccess.replace('.', ','), 3)
-            file_info(outputModify.replace('.', ','), 4)
-            file_info(outputChange.replace('.', ','), 5)
+            file_info(outputFilePath, 0, False)
+            file_info(outputInode, 1, False)
+            file_info(outputSize, 2, False)
+            file_info(outputAccess.replace('.', ','), 3, False)
+            file_info(outputModify.replace('.', ','), 4, False)
+            file_info(outputChange.replace('.', ','), 5, False)
             self.tableWidget.resizeColumnsToContents()
             self.tableWidget.resizeRowsToContents()
             self.tableWidget.sortByColumn(3, QtCore.Qt.AscendingOrder)
@@ -561,36 +545,35 @@ class Ui_MIAVIbyINCEDOS(object):
         def sorting():
             if self.listWidget_2.currentRow() < 0:
                 return
-
-            outputDiskPath = []
-            outputInode = []
-            outputSize = []
-            outputAccess = []
-            outputModify = []
-            outputChange = []
+            testlist0 = []
+            testlist1 = []
+            testlist2 = []
+            testlist3 = []
+            testlist4 = []
+            testlist5 = []
             for rowNumber in range(self.tableWidget.rowCount()):
                 fields = self.tableWidget.item(rowNumber, 0).text()
-                outputDiskPath += [fields]
+                testlist0 += [fields]
                 fields = self.tableWidget.item(rowNumber, 1).text()
-                outputInode += [int(fields)]
+                testlist1 += [int(fields)]
                 fields = self.tableWidget.item(rowNumber, 2).text()
-                outputSize += [int(fields)]
+                testlist2 += [int(fields)]
                 fields = self.tableWidget.item(rowNumber, 3).text()
-                outputAccess += [fields]
+                testlist3 += [fields]
                 fields = self.tableWidget.item(rowNumber, 4).text()
-                outputModify += [fields]
+                testlist4 += [fields]
                 fields = self.tableWidget.item(rowNumber, 5).text()
-                outputChange += [fields]
+                testlist5 += [fields]
             array = []
-            for i in range(len(outputSize)):
-                array.append([outputDiskPath[i], outputInode[i], outputSize[i],
-                             outputAccess[i], outputModify[i], outputChange[i]])
+            for i in range(len(testlist2)):
+                array.append([testlist0[i], testlist1[i], testlist2[i],
+                             testlist3[i], testlist4[i], testlist5[i]])
             array = sorted(
                 array, key=lambda x: x[self.listWidget_2.currentRow()])
             # print(array)
             if self.radioButton_2.isChecked():
                 array.reverse()
-            file_info2(array, len(outputSize))
+            file_info2(array, len(testlist2))
 
         def file_info2(arr, rows):
             self.tableWidget.clear()
@@ -620,11 +603,12 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton.clicked.connect(find_disks)  # сканирование
         self.pushButton_3.clicked.connect(back_onclick)  # назад
         self.pushButton_4.clicked.connect(
-            lambda status, : anal_onclick())  # анализ
+            lambda status, : analize_output())  # анализ
         self.listWidget.clicked.connect(item_click)  # поле в листе
         self.pushButton_2.clicked.connect(
             saveFileDialog)  # сохранение в csv
         self.pushButton_5.clicked.connect(sorting)
+
 
 class inpwd(object):
     password = ''
@@ -696,20 +680,20 @@ class inpwd(object):
             dmesg = Popen(
                 ['echo', test_var], stdout=PIPE)
             process = Popen(cmd,
-                                       stdin=dmesg.stdout,
-                                       stdout=PIPE,
-                                       stderr=PIPE,
-                                       shell=True,
-                                       encoding='utf-8')
+                            stdin=dmesg.stdout,
+                            stdout=PIPE,
+                            stderr=PIPE,
+                            shell=True,
+                            encoding='utf-8')
             dmesg.stdout.close()
             dmesg = Popen(
                 ['echo', test_var], stdout=PIPE)
             process = Popen(cmd,
-                                       stdin=dmesg.stdout,
-                                       stdout=PIPE,
-                                       stderr=PIPE,
-                                       shell=True,
-                                       encoding='utf-8')
+                            stdin=dmesg.stdout,
+                            stdout=PIPE,
+                            stderr=PIPE,
+                            shell=True,
+                            encoding='utf-8')
             dmesg.stdout.close()
             stdout, stderr = process.communicate()  # костыль
             out = stdout + stderr                   # костыль
@@ -724,15 +708,15 @@ class inpwd(object):
                     for i in range(10):
                         # time.sleep(0.01)
                         self.lineEdit.setGeometry(x-i, 300, 240, 31)
-                    x -=10
+                    x -= 10
                     for i in range(20):
                         # time.sleep(0.01)
                         self.lineEdit.setGeometry(x+i, 300, 240, 31)
-                    x +=20
+                    x += 20
                     for i in range(10):
                         time.sleep(0.01)
                         self.lineEdit.setGeometry(x-i, 300, 240, 31)
-                    x -=10
+                    x -= 10
             else:
                 inpwd.password = test_var
                 open_programm()
@@ -744,7 +728,7 @@ class inpwd(object):
             ui = Ui_MIAVIbyINCEDOS()
             ui.setupUi(MIAVIbyINCEDOS)
             MIAVIbyINCEDOS.show()
-            Form.close()
+            Form.hide()
 
         def defolt_color_line():
             self.lineEdit.setStyleSheet("color:white;\n"

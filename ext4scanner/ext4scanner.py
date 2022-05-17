@@ -42,8 +42,8 @@ class Global():
 
     def call_cmd(cmd):
         # print(cmd)
-        dmesg = Popen(['echo', inpwd.test_var], stdout=PIPE)
-        process = Popen(['sudo'] + cmd,
+        dmesg = Popen(['echo', inpwd.password], stdout=PIPE)
+        process = Popen(['sudo', '-S'] + cmd,
                         stdin=dmesg.stdout,
                         stdout=PIPE,
                         stderr=PIPE,
@@ -402,7 +402,7 @@ class Ui_MIAVIbyINCEDOS(object):
             else:
                 return 'error'
 
-        def anal_onclick():
+        def analize_output():
             info = str(self.listWidget.currentItem().text())
             info = str(info[info.find('       логическое имя:'):])
 
@@ -603,15 +603,15 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton.clicked.connect(find_disks)  # сканирование
         self.pushButton_3.clicked.connect(back_onclick)  # назад
         self.pushButton_4.clicked.connect(
-            lambda status, : anal_onclick())  # анализ
+            lambda status, : analize_output())  # анализ
         self.listWidget.clicked.connect(item_click)  # поле в листе
         self.pushButton_2.clicked.connect(
             saveFileDialog)  # сохранение в csv
         self.pushButton_5.clicked.connect(sorting)
 
 
-class inpwd(QtWidgets.QWidget):
-    test_var = ''
+class inpwd(object):
+    password = ''
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -621,13 +621,12 @@ class inpwd(QtWidgets.QWidget):
         self.background.setGeometry(QtCore.QRect(-20, -40, 1621, 1081))
         self.background.setText("")
         self.background.setPixmap(QtGui.QPixmap(
-            "../../../../../usr/share/applications/background.jpg"))
+            "/usr/share/applications/background.jpg"))
         self.background.setObjectName("background")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(200, 125, 100, 100))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(
-            "../../../../../usr/share/applications/eye.png"))
+        self.label.setPixmap(QtGui.QPixmap("/usr/share/applications/eye.png"))
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Form)
         self.label_2.setGeometry(QtCore.QRect(130, 260, 240, 15))
@@ -681,20 +680,20 @@ class inpwd(QtWidgets.QWidget):
             dmesg = Popen(
                 ['echo', test_var], stdout=PIPE)
             process = Popen(cmd,
-                                       stdin=dmesg.stdout,
-                                       stdout=PIPE,
-                                       stderr=PIPE,
-                                       shell=True,
-                                       encoding='utf-8')
+                            stdin=dmesg.stdout,
+                            stdout=PIPE,
+                            stderr=PIPE,
+                            shell=True,
+                            encoding='utf-8')
             dmesg.stdout.close()
             dmesg = Popen(
                 ['echo', test_var], stdout=PIPE)
             process = Popen(cmd,
-                                       stdin=dmesg.stdout,
-                                       stdout=PIPE,
-                                       stderr=PIPE,
-                                       shell=True,
-                                       encoding='utf-8')
+                            stdin=dmesg.stdout,
+                            stdout=PIPE,
+                            stderr=PIPE,
+                            shell=True,
+                            encoding='utf-8')
             dmesg.stdout.close()
             stdout, stderr = process.communicate()  # костыль
             out = stdout + stderr                   # костыль
@@ -709,17 +708,17 @@ class inpwd(QtWidgets.QWidget):
                     for i in range(10):
                         # time.sleep(0.01)
                         self.lineEdit.setGeometry(x-i, 300, 240, 31)
-                    x -=10
+                    x -= 10
                     for i in range(20):
                         # time.sleep(0.01)
                         self.lineEdit.setGeometry(x+i, 300, 240, 31)
-                    x +=20
+                    x += 20
                     for i in range(10):
                         time.sleep(0.01)
                         self.lineEdit.setGeometry(x-i, 300, 240, 31)
-                    x -=10
+                    x -= 10
             else:
-                inpwd.test_var = test_var
+                inpwd.password = test_var
                 open_programm()
 
         def open_programm():

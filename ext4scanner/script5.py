@@ -221,6 +221,11 @@ class Ui_MIAVIbyINCEDOS(object):
         self.progressBar.setGeometry(QtCore.QRect(30, 530, 471, 23))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(30, 590, 301, 17))
+        self.label.setStyleSheet("color:white;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.label.setObjectName("label")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(60, 40, 68, 81))
         font = QtGui.QFont()
@@ -290,6 +295,7 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton_4.setText(_translate("MIAVIbyINCEDOS", "Анализ"))
         self.pushButton.setText(_translate("MIAVIbyINCEDOS", "Поиск дисков"))
         self.label_12.setText(_translate("MIAVIbyINCEDOS", "Обнаруженые следующие подключенные носители:"))
+        self.label.setText(_translate("MIAVIbyINCEDOS", "Примерное время ожидания: "))
         self.label_5.setText(_translate("MIAVIbyINCEDOS", "by INCEDOS"))
 
 

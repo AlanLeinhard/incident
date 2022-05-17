@@ -1,11 +1,10 @@
-import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QFileDialog
 from subprocess import Popen, PIPE, call
 import argparse
 import csv
 from PyQt5.QtCore import Qt
-
+from time import time, sleep
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--install", action="store_true",
@@ -274,6 +273,12 @@ class Ui_MIAVIbyINCEDOS(object):
                                        "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
 
         self.progressBar.setObjectName("progressBar")
+        self.progressBar.setObjectName("progressBar")
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(30, 590, 301, 17))
+        self.label.setStyleSheet("color:white;\n"
+                                 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));")
+        self.label.setObjectName("label")
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(60, 40, 150, 81))
         font = QtGui.QFont()
@@ -352,6 +357,8 @@ class Ui_MIAVIbyINCEDOS(object):
         self.pushButton.setText(_translate("MIAVIbyINCEDOS", "Поиск дисков"))
         self.label_12.setText(_translate(
             "MIAVIbyINCEDOS", "Обнаруженые следующие подключенные носители:"))
+        self.label.setText(_translate(
+            "MIAVIbyINCEDOS", "Примерное время ожидания: "))
         self.label_5.setText(_translate("MIAVIbyINCEDOS", "by INCEDOS"))
 
         def find_disks():
@@ -427,6 +434,17 @@ class Ui_MIAVIbyINCEDOS(object):
             # outputChange    +=  lambda status, outputFilePath=outputFilePath, cmd=['stat', '--printf', '%z \n', row]: search_info(outputFilePath, cmd)
 
             for row in outputFilePath.splitlines():
+                start = time()
+                outputInode += Global.call_cmd(['stat',
+                                               '--printf', '%i \n', row])
+                end = time()
+                break
+
+            full_time = i*5*(end-start)
+            self.label.setText(f"Примерное время ожидания: {full_time}")
+            
+
+            for row in outputFilePath.splitlines():
                 outputInode += Global.call_cmd(['stat',
                                                '--printf', '%i \n', row])
                 Global.done += Global.cut
@@ -447,6 +465,8 @@ class Ui_MIAVIbyINCEDOS(object):
                                                 '--printf', '%z \n', row])
                 Global.done += Global.cut
                 self.progressBar.setProperty("value", int(Global.done))
+                full_time -= (end-start)*5
+                self.label.setText(f"Примерное время ожидания: {int(full_time/60)} минут")
             self.tableWidget.clear()
             self.tableWidget.setColumnCount(6)
             self.tableWidget.setRowCount(len(outputFilePath.splitlines()))

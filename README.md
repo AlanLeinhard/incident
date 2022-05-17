@@ -75,7 +75,7 @@
 sudo apt-get install python3-pyqt5
 sudo apt-get install qtcreator pyqt5-dev-tools
 sudo apt-get install qttools5-dev-tools
-pyuic5 -x script2.ui -o script2.py
+cd ext4scanner && pyuic5 -x script5.ui -o script5.py && cd ..
 
 pytopip
 
